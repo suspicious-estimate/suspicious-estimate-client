@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수상한견적서 — UI 목업 (프론트엔드 설계)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Pretendard', sans-serif; background: #1a1a2e; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+
+.header-info {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 900px;
+}
+.header-info h1 { font-size: 28px; margin-bottom: 8px; }
+.header-info p { color: #aaa; font-size: 14px; }
+
+.screen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 375px));
+  gap: 40px;
+  justify-content: center;
+  max-width: 1600px;
+}
+
+.screen-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.screen-label {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  background: #e74c3c;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+.screen-label.new { background: #8b5cf6; }
+
+.screen-sublabel {
+  color: #aaa;
+  font-size: 12px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.phone {
+  width: 375px;
+  height: 812px;
+  background: #fff;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  position: relative;
+  border: 8px solid #333;
+}
+
+.phone-inner {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* 상태바 */
+.status-bar {
+  height: 44px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 하단 네비게이션 — 6탭 */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 9px;
+  color: #999;
+  gap: 3px;
+}
+.nav-item.active { color: #2563eb; }
+.nav-icon { font-size: 18px; }
+
+/* 공통 */
+.page-content { padding: 0 20px 100px 20px; }
+.page-title { font-size: 22px; font-weight: 700; margin: 16px 0 12px; }
+.page-subtitle { font-size: 13px; color: #666; margin-bottom: 16px; }
+
+/* 버튼 */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-kakao {
+  width: 100%;
+  padding: 14px;
+  background: #FEE500;
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-outline {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.btn-sm {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* 카드 */
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.card-meta { font-size: 12px; color: #888; }
+.card-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.badge-active { background: #dcfce7; color: #16a34a; }
+.badge-complete { background: #e0e7ff; color: #4338ca; }
+
+/* 타임라인 */
+.timeline-date-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  margin: 16px 0 8px;
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+}
+.timeline-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-left: 3px solid #e5e7eb;
+  margin-left: 8px;
+  margin-bottom: 4px;
+}
+.timeline-item:hover { background: #f9fafb; border-radius: 8px; }
+.tl-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.tl-icon-msg { background: #dbeafe; }
+.tl-icon-photo { background: #fef3c7; }
+.tl-icon-doc { background: #fce7f3; }
+.tl-icon-memo { background: #d1fae5; }
+.tl-content { flex: 1; min-width: 0; }
+.tl-sender { font-size: 12px; font-weight: 600; color: #374151; }
+.tl-text { font-size: 13px; color: #555; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tl-time { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+.category-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.cat-demolition { background: #fee2e2; color: #dc2626; }
+.cat-electrical { background: #fef9c3; color: #ca8a04; }
+.cat-carpentry { background: #fed7aa; color: #c2410c; }
+.cat-painting { background: #e9d5ff; color: #7c3aed; }
+.cat-plumbing { background: #dbeafe; color: #2563eb; }
+.cat-tiling { background: #ccfbf1; color: #0d9488; }
+
+/* 업로드 */
+.upload-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 16px 0;
+  background: #f9fafb;
+}
+.upload-zone-icon { font-size: 40px; margin-bottom: 12px; }
+.upload-zone-text { font-size: 14px; color: #6b7280; }
+.upload-type-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.upload-type-icon { font-size: 24px; }
+.upload-type-text { font-size: 14px; font-weight: 500; }
+.upload-type-desc { font-size: 11px; color: #888; }
+
+/* 견적서 */
+.estimate-score {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin: 16px auto;
+}
+.score-good { background: #dcfce7; color: #16a34a; border: 3px solid #16a34a; }
+.score-warn { background: #fef3c7; color: #d97706; border: 3px solid #d97706; }
+.score-bad { background: #fee2e2; color: #dc2626; border: 3px solid #dc2626; }
+
+.risk-item {
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.risk-high { background: #fee2e2; }
+.risk-medium { background: #fef3c7; }
+.risk-low { background: #f0fdf4; }
+.risk-icon { font-size: 18px; }
+.risk-text { font-size: 13px; flex: 1; }
+.risk-label { font-size: 11px; font-weight: 700; }
+
+/* 필터 탭 */
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin-bottom: 8px;
+}
+.filter-tab {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: #f3f4f6;
+  color: #555;
+}
+.filter-tab.active { background: #2563eb; color: #fff; }
+
+/* PDF 미리보기 */
+.pdf-preview {
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+}
+.pdf-preview-title { font-size: 16px; font-weight: 700; text-align: center; border-bottom: 2px solid #333; padding-bottom: 8px; margin-bottom: 12px; }
+.pdf-meta-row { display: flex; font-size: 12px; margin: 4px 0; }
+.pdf-meta-label { width: 70px; font-weight: 600; color: #555; }
+
+/* 프로젝트 생성 폼 */
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; display: block; }
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+}
+.form-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+/* 변경요청 */
+.change-item {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.change-header { display: flex; justify-content: space-between; align-items: center; }
+.change-desc { font-size: 14px; font-weight: 500; }
+.change-cost { font-size: 13px; font-weight: 700; color: #dc2626; }
+.change-status { font-size: 11px; padding: 3px 8px; border-radius: 6px; }
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-confirmed { background: #dcfce7; color: #166534; }
+
+/* 검색바 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.search-bar input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  outline: none;
+}
+
+/* Quota 바 */
+.quota-bar-container {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+.quota-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.quota-bar-track {
+  height: 6px;
+  background: #e0f2fe;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.quota-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: #2563eb;
+}
+.quota-bar-fill.warn { background: #f59e0b; }
+.quota-bar-fill.danger { background: #dc2626; }
+
+/* 채팅 버블 */
+.chat-bubble {
+  max-width: 75%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.chat-bubble.user {
+  background: #2563eb;
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.chat-bubble.assistant {
+  background: #f3f4f6;
+  color: #1f2937;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  gap: 4px;
+}
+.suggestion-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+.suggestion-chip {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid #2563eb;
+  border-radius: 20px;
+  font-size: 11px;
+  color: #2563eb;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.chat-input-bar {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chat-input-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 13px;
+  outline: none;
+}
+.chat-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 온보딩 */
+.onboarding-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.onboarding-step.completed { opacity: 0.5; }
+.step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-number.done { background: #16a34a; }
+
+/* 내보내기 옵션 */
+.export-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.export-option:hover { background: #f9fafb; border-color: #2563eb; }
+.export-icon { font-size: 28px; }
+.export-text-title { font-size: 14px; font-weight: 600; }
+.export-text-desc { font-size: 11px; color: #666; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header-info">
+  <h1>수상한견적서 — 프론트엔드 UI 설계 목업</h1>
+  <p>모바일 우선 (375x812px) | 13개 화면 | 6탭 하단 네비게이션 | AI 상담 포함</p>
+  <p style="margin-top:8px; color:#ffd700;">기술스택: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui | PWA 모바일 앱</p>
+</div>
+
+<div class="screen-grid">
+
+<!-- ============================================ -->
+<!-- 화면 1: 로그인 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">1. 로그인</div>
+  <div class="screen-sublabel">/login — 최초 진입 시</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:40px;">
+        <div style="font-size:48px; margin-bottom:16px;">🏠</div>
+        <div style="font-size:24px; font-weight:800; margin-bottom:8px;">수상한견적서</div>
+        <div style="font-size:14px; color:#666; text-align:center; margin-bottom:40px; line-height:1.6;">
+          인테리어 공사 자료를<br>자동으로 정리해드립니다
+        </div>
+        <div style="width:100%; max-width:300px;">
+          <button class="btn-kakao">
+            <span style="font-size:20px;">💬</span>
+            카카오로 시작하기
+          </button>
+          <p style="font-size:11px; color:#999; text-align:center; margin-top:16px;">
+            로그인 시 서비스 이용약관에 동의합니다
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 2: 온보딩 (첫 사용자) ★ NEW -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label new">2. 온보딩 ★NEW</div>
+  <div class="screen-sublabel">/projects — 첫 로그인 후 (빈 상태)</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>수상한견적서</span>
+        <span>⚙️</span>
+      </div>
+      <div class="page-content">
+        <div style="text-align:center; padding:20px 0;">
+          <div style="font-size:40px; margin-bottom:12px;">👋</div>
+          <div style="font-size:20px; font-weight:700; margin-bottom:8px;">환영합니다!</div>
+          <div style="font-size:13px; color:#666; line-height:1.6;">
+            인테리어 공사 기록을 시작해볼까요?<br>
+            3단계만 따라하면 됩니다.
+          </div>
+        </div>
+
+        <div class="onboarding-step">
+          <div class="step-number">1</div>
+          <div>
+            <div style="font-size:14px; font-weight:600;">프로젝트 만들기</div>
+            <div style="font-size:11px; color:#666;">공사 이름, 업체, 금액을 입력해요</div>
+          </div>
+        </div>
+
+        <div class="onboarding-step">
+          <div class="step-number">2</div>
+          <div>
+            <div style="font-size:14px; font-weight:600;">카카오톡 대화 올리기</div>
+            <div style="font-size:11px; color:#666;">업자와의 카톡을 내보내서 업로드</div>
+          </div>
+        </div>
+
+        <div class="onboarding-step">
+          <div class="step-number">3</div>
+          <div>
+            <div style="font-size:14px; font-weight:600;">AI가 자동 분류!</div>
+            <div style="font-size:11px; color:#666;">공정별로 알아서 정리해드려요</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <button class="btn-primary">+ 첫 프로젝트 시작하기</button>
+        </div>
+        <div style="text-align:center; margin-top:10px;">
+          <span style="font-size:12px; color:#2563eb; cursor:pointer; text-decoration:underline;">이미 알고있어요, 건너뛰기 →</span>
+        </div>
+
+        <div style="margin-top:16px; padding:12px; background:#eff6ff; border-radius:10px;">
+          <div style="font-size:12px; font-weight:600; color:#1d4ed8;">💡 카카오톡 대화 내보내기 방법</div>
+          <div style="font-size:11px; color:#555; margin-top:4px; line-height:1.5;">
+            채팅방 → 메뉴(≡) → 대화 내보내기 → 텍스트로 저장
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 3: 프로젝트 목록 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">3. 프로젝트 목록</div>
+  <div class="screen-sublabel">/projects — 메인 화면</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>수상한견적서</span>
+        <span>⚙️</span>
+      </div>
+      <div class="page-content">
+        <div class="page-title">내 공사</div>
+        <div class="page-subtitle">진행 중인 인테리어 프로젝트</div>
+
+        <div class="card">
+          <div class="card-title">우리집 25평 인테리어</div>
+          <div class="card-meta">서울시 강남구 · 행복건설</div>
+          <div class="card-meta">계약금 2,800만원 · 3.15~4.30</div>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <span class="card-badge badge-active">진행중</span>
+            <span style="font-size:11px; color:#666; padding-top:4px;">📷 127장 · 💬 458개</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">원룸 도배+장판</div>
+          <div class="card-meta">서울시 관악구 · 깔끔인테리어</div>
+          <div class="card-meta">계약금 350만원 · 2.1~2.5</div>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <span class="card-badge badge-complete">완료</span>
+            <span style="font-size:11px; color:#666; padding-top:4px;">📷 23장 · 💬 89개</span>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-primary">+ 새 프로젝트 만들기</button>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 4: 프로젝트 생성 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">4. 프로젝트 생성</div>
+  <div class="screen-sublabel">/projects/new — 폼 입력</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>새 프로젝트</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:16px;">
+        <div class="form-group">
+          <label class="form-label">프로젝트 이름 *</label>
+          <input class="form-input" placeholder="예: 우리집 25평 인테리어" value="우리집 25평 인테리어">
+        </div>
+        <div class="form-group">
+          <label class="form-label">공사 주소</label>
+          <input class="form-input" placeholder="예: 서울시 강남구 역삼동 123">
+        </div>
+        <div class="form-group">
+          <label class="form-label">시공업체명</label>
+          <input class="form-input" placeholder="예: 행복건설">
+        </div>
+        <div class="form-group">
+          <label class="form-label">계약금액</label>
+          <div style="position:relative;">
+            <input class="form-input" placeholder="예: 2800" type="number" style="padding-right:50px;">
+            <span style="position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:13px; color:#666; font-weight:500;">만원</span>
+          </div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">= 28,000,000원</div>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">공사 시작일</label>
+            <input class="form-input" type="date">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">공사 종료일</label>
+            <input class="form-input" type="date">
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <button class="btn-primary">프로젝트 생성</button>
+        </div>
+
+        <!-- 생성 완료 토스트 미리보기 ★ -->
+        <div style="margin-top:16px; padding:12px 16px; background:#dcfce7; border:1px solid #86efac; border-radius:10px; display:flex; align-items:center; gap:10px;">
+          <span style="font-size:16px;">✅</span>
+          <div>
+            <div style="font-size:13px; font-weight:600; color:#166534;">프로젝트가 생성되었어요!</div>
+            <div style="font-size:11px; color:#555;">지금 바로 자료를 올려볼까요? →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 5: 업로드 + QuotaBar ★UPDATED -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">5. 파일 업로드</div>
+  <div class="screen-sublabel">/projects/[id]/upload — QuotaBar 포함</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>자료 올리기</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <!-- QuotaBar ★ -->
+        <div class="quota-bar-container">
+          <div class="quota-bar-header">
+            <span style="font-weight:600; color:#0369a1;">저장 용량</span>
+            <span style="color:#555;">1.2GB / 5GB</span>
+          </div>
+          <div class="quota-bar-track">
+            <div class="quota-bar-fill" style="width:24%;"></div>
+          </div>
+          <div style="font-size:10px; color:#888; margin-top:4px;">Basic 요금제 · 파일 78/500개</div>
+        </div>
+
+        <div class="upload-zone">
+          <div class="upload-zone-icon">📁</div>
+          <div class="upload-zone-text">파일을 여기에 끌어놓거나<br>아래 버튼으로 선택하세요</div>
+          <div style="font-size:11px; color:#2563eb; margin-top:8px; font-weight:500;">txt · jpg · png · pdf 동시 업로드 가능</div>
+        </div>
+
+        <div class="upload-type-btn">
+          <span class="upload-type-icon">💬</span>
+          <div>
+            <div class="upload-type-text">카카오톡 대화</div>
+            <div class="upload-type-desc">카톡에서 내보낸 .txt 파일</div>
+          </div>
+        </div>
+
+        <div class="upload-type-btn">
+          <span class="upload-type-icon">📷</span>
+          <div>
+            <div class="upload-type-text">현장 사진</div>
+            <div class="upload-type-desc">공사 현장 사진 (다중 선택 가능)</div>
+          </div>
+        </div>
+
+        <div class="upload-type-btn">
+          <span class="upload-type-icon">📄</span>
+          <div>
+            <div class="upload-type-text">견적서 PDF</div>
+            <div class="upload-type-desc">받은 견적서 파일 (PDF/이미지)</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:12px; background:#f0f9ff; border-radius:10px;">
+          <div style="font-size:12px; color:#0369a1; font-weight:600;">💡 카카오톡 대화 내보내기 방법</div>
+          <div style="font-size:11px; color:#555; margin-top:4px; line-height:1.5;">
+            채팅방 → 메뉴(≡) → 대화 내보내기 → 텍스트 파일로 저장
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item active"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 6: 업로드 진행 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">6. 업로드 처리 중</div>
+  <div class="screen-sublabel">업로드 후 파싱 진행 상태</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>처리 중...</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:20px;">
+        <div style="text-align:center; margin-bottom:24px;">
+          <div style="font-size:40px; margin-bottom:8px;">⏳</div>
+          <div style="font-size:16px; font-weight:600;">자료를 정리하고 있어요</div>
+          <div style="font-size:13px; color:#666; margin-top:4px;">예상 소요시간: <strong>약 2분</strong></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;">💬 카카오톡 대화 파싱</span>
+            <span style="font-size:12px; color:#16a34a; font-weight:600;">✓ 완료</span>
+          </div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">458개 메시지 추출됨</div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;">📷 사진 날짜 추출</span>
+            <span style="font-size:12px; color:#16a34a; font-weight:600;">✓ 완료</span>
+          </div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">127장 EXIF 정보 추출</div>
+        </div>
+
+        <div class="card" style="border-color:#2563eb;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;">🤖 AI 공정 분류</span>
+            <span style="font-size:12px; color:#2563eb; font-weight:600;">처리중...</span>
+          </div>
+          <div style="background:#e5e7eb; border-radius:4px; height:6px; margin-top:8px;">
+            <div style="background:#2563eb; border-radius:4px; height:6px; width:65%;"></div>
+          </div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">298/458 메시지 분류 완료</div>
+        </div>
+
+        <div class="card" style="opacity:0.5;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;">📋 타임라인 구성</span>
+            <span style="font-size:12px; color:#999;">대기중</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 7: 타임라인 + 검색바 ★UPDATED -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">7. 타임라인 (핵심 화면)</div>
+  <div class="screen-sublabel">/projects/[id]/timeline — 검색 포함</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>타임라인</span>
+        <span>+ 메모</span>
+      </div>
+      <div class="page-content" style="padding-top:8px;">
+        <!-- 검색바 ★ -->
+        <div class="search-bar">
+          <span style="font-size:14px; color:#999;">🔍</span>
+          <input placeholder="메시지, 공정, 날짜 검색...">
+        </div>
+
+        <!-- 필터 탭 -->
+        <div class="filter-tabs">
+          <div class="filter-tab active">전체</div>
+          <div class="filter-tab">철거</div>
+          <div class="filter-tab">전기</div>
+          <div class="filter-tab">목공</div>
+          <div class="filter-tab">도배</div>
+          <div class="filter-tab">타일</div>
+          <div class="filter-tab">기타</div>
+        </div>
+
+        <!-- 날짜 그룹 -->
+        <div class="timeline-date-header">📅 2024년 3월 15일 금요일</div>
+
+        <div class="timeline-item">
+          <div class="tl-icon tl-icon-msg">💬</div>
+          <div class="tl-content">
+            <div class="tl-sender">홍길동</div>
+            <div class="tl-text">사장님 오늘 철거 시작하시나요?</div>
+            <div class="tl-time">오전 9:30</div>
+            <span class="category-tag cat-demolition">철거</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-icon tl-icon-msg">💬</div>
+          <div class="tl-content">
+            <div class="tl-sender">김시공</div>
+            <div class="tl-text">거실 철거 완료했습니다</div>
+            <div class="tl-time">오후 12:30</div>
+            <span class="category-tag cat-demolition">철거</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-icon tl-icon-photo">📷</div>
+          <div class="tl-content">
+            <div class="tl-sender">김시공</div>
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <div style="width:60px; height:60px; background:#e5e7eb; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px;">🖼️</div>
+              <div style="width:60px; height:60px; background:#e5e7eb; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px;">🖼️</div>
+            </div>
+            <div class="tl-time">오후 12:31</div>
+            <span class="category-tag cat-demolition">철거</span>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="border-left-color:#f59e0b;">
+          <div class="tl-icon" style="background:#fef3c7;">⚠️</div>
+          <div class="tl-content">
+            <div class="tl-sender">홍길동</div>
+            <div class="tl-text">벽지 밑에 곰팡이가 있는 것 같은데 확인해주실 수 있나요?</div>
+            <div class="tl-time">오후 1:00</div>
+            <span class="category-tag cat-demolition">철거</span>
+          </div>
+        </div>
+
+        <div class="timeline-date-header">📅 2024년 3월 18일 월요일</div>
+
+        <div class="timeline-item">
+          <div class="tl-icon tl-icon-msg">💬</div>
+          <div class="tl-content">
+            <div class="tl-sender">김시공</div>
+            <div class="tl-text">오늘부터 전기 작업 들어갑니다</div>
+            <div class="tl-time">오전 9:00</div>
+            <span class="category-tag cat-electrical">전기</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-icon tl-icon-memo">📝</div>
+          <div class="tl-content">
+            <div class="tl-sender" style="color:#2563eb;">내 메모</div>
+            <div class="tl-text">콘센트 3개 추가 요청 (9만원 추가)</div>
+            <div class="tl-time">오전 9:35</div>
+            <span class="category-tag cat-electrical">전기</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item active"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 8: 분류 확인 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">8. 분류 확인/수정</div>
+  <div class="screen-sublabel">AI 분류 결과 → 사용자 확정</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>분류 확인</span>
+        <span>전체 확정</span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <div style="background:#eff6ff; padding:12px; border-radius:10px; margin-bottom:16px;">
+          <div style="font-size:13px; font-weight:600; color:#1d4ed8;">🤖 AI가 분류한 결과를 확인해주세요</div>
+          <div style="font-size:11px; color:#555; margin-top:4px;">틀린 분류는 탭해서 수정할 수 있어요</div>
+        </div>
+
+        <div style="font-size:13px; font-weight:600; margin-bottom:8px;">미확정 항목 (15개)</div>
+
+        <div class="card" style="border-left:3px solid #dc2626;">
+          <div style="font-size:13px;">"거실 철거 완료했습니다"</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <span class="category-tag cat-demolition">철거 (92%)</span>
+            <div style="display:flex; gap:8px;">
+              <span style="font-size:20px; cursor:pointer;">✓</span>
+              <span style="font-size:20px; cursor:pointer;">✏️</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-left:3px solid #ca8a04;">
+          <div style="font-size:13px;">"콘센트 위치 확인 부탁드립니다"</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <span class="category-tag cat-electrical">전기 (87%)</span>
+            <div style="display:flex; gap:8px;">
+              <span style="font-size:20px; cursor:pointer;">✓</span>
+              <span style="font-size:20px; cursor:pointer;">✏️</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-left:3px solid #6b7280;">
+          <div style="font-size:13px;">"네 지금 출발합니다. 10시쯤 도착할 것 같아요"</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <span class="category-tag" style="background:#f3f4f6; color:#666;">기타 (45%)</span>
+            <div style="display:flex; gap:8px;">
+              <span style="font-size:20px; cursor:pointer;">✓</span>
+              <span style="font-size:20px; cursor:pointer;">✏️</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-primary">확인한 분류 모두 확정 (2개)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 9: 변경요청 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">9. 변경요청 관리</div>
+  <div class="screen-sublabel">더보기 → 변경/추가공사 기록</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>변경요청</span>
+        <span>+ 추가</span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+          <div>
+            <div style="font-size:13px; color:#666;">추가금 합계</div>
+            <div style="font-size:20px; font-weight:800; color:#dc2626;">+390,000원</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:13px; color:#666;">총 3건</div>
+            <div style="font-size:12px; color:#16a34a;">확인 2 / 대기 1</div>
+          </div>
+        </div>
+
+        <div class="change-item">
+          <div class="change-header">
+            <span class="change-desc">콘센트 3개 추가</span>
+            <span class="change-cost">+90,000원</span>
+          </div>
+          <div style="font-size:12px; color:#666; margin-top:4px;">3/18 · 전기 작업 중</div>
+          <span class="change-status status-confirmed">✓ 쌍방 확인</span>
+        </div>
+
+        <div class="change-item">
+          <div class="change-header">
+            <span class="change-desc">싱크대 위치 변경</span>
+            <span style="font-size:13px; font-weight:700; color:#16a34a;">0원 (무료)</span>
+          </div>
+          <div style="font-size:12px; color:#666; margin-top:4px;">3/16 · 배관 위치 차이로 인한 변경</div>
+          <span class="change-status status-confirmed">✓ 쌍방 확인</span>
+        </div>
+
+        <div class="change-item" style="border-color:#f59e0b;">
+          <div class="change-header">
+            <span class="change-desc">화장실 타일 변경</span>
+            <span class="change-cost">+300,000원</span>
+          </div>
+          <div style="font-size:12px; color:#666; margin-top:4px;">3/25 · 기존 타일 단종</div>
+          <span class="change-status status-pending">⏳ 확인 대기</span>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-outline">+ 변경요청 추가</button>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item active"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 10: 견적 분석 + AI 상담 CTA ★UPDATED -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">10. 견적서 AI 분석</div>
+  <div class="screen-sublabel">/projects/[id]/estimate — AI 상담 연결 CTA</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>견적 분석</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <div style="text-align:center;">
+          <div class="estimate-score score-warn">72</div>
+          <div style="font-size:14px; font-weight:600; margin-top:8px;">주의 필요</div>
+          <div style="font-size:12px; color:#666;">확인이 필요한 항목이 있습니다</div>
+        </div>
+
+        <!-- AI 상담 CTA가 여기 아래쪽에 있으므로, 견적 없을 때 빈 상태는 별도 조건 처리 -->
+        <!-- (아래는 견적서 있을 때) -->
+        <div style="font-size:14px; font-weight:700; margin:20px 0 8px;">⚠️ 추가금 리스크 (3건)</div>
+
+        <div class="risk-item risk-high">
+          <span class="risk-icon">🔴</span>
+          <div class="risk-text">
+            <div class="risk-label">높음 — "철거 폐기물 처리비 별도"</div>
+            <div style="font-size:11px; margin-top:2px;">보통 30~80만원 추가 발생. 견적에 포함 여부 확인 필요</div>
+          </div>
+        </div>
+
+        <div class="risk-item risk-high">
+          <span class="risk-icon">🔴</span>
+          <div class="risk-text">
+            <div class="risk-label">높음 — "전기 추가 배선 현장 결정"</div>
+            <div style="font-size:11px; margin-top:2px;">콘센트 추가 시 개당 3~5만원. 범위 미확정</div>
+          </div>
+        </div>
+
+        <div class="risk-item risk-medium">
+          <span class="risk-icon">🟡</span>
+          <div class="risk-text">
+            <div class="risk-label">중간 — 도배 면적 "실측 후 확정"</div>
+            <div style="font-size:11px; margin-top:2px;">면적 차이에 따라 ±10% 변동 가능</div>
+          </div>
+        </div>
+
+        <div style="font-size:14px; font-weight:700; margin:20px 0 8px;">❓ 빠진 항목 (2건)</div>
+
+        <div class="risk-item risk-low">
+          <span class="risk-icon">📋</span>
+          <div class="risk-text">
+            <div class="risk-label">입주청소 항목 없음</div>
+            <div style="font-size:11px; margin-top:2px;">보통 25평 기준 15~25만원. 포함인지 확인하세요</div>
+          </div>
+        </div>
+
+        <!-- AI 상담 CTA ★ -->
+        <div style="margin-top:20px; padding:14px; background:linear-gradient(135deg, #eff6ff, #f0fdf4); border:1px solid #93c5fd; border-radius:12px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="font-size:20px;">💬</span>
+            <span style="font-size:13px; font-weight:700; color:#1d4ed8;">이 견적서에 대해 AI에게 물어보세요</span>
+          </div>
+          <div style="font-size:11px; color:#555; margin-bottom:10px;">
+            "폐기물 처리비 안 내려면?" · "이 금액 적정한가요?"
+          </div>
+          <button class="btn-sm" style="background:#2563eb; color:#fff; width:100%;">AI 상담으로 이동 →</button>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item active"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 11: AI 상담 채팅 ★ NEW -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label new">11. AI 상담 ★NEW</div>
+  <div class="screen-sublabel">/projects/[id]/assistant — 핵심 기능</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>AI 상담</span>
+        <span style="font-size:10px; color:#666;">우리집 25평</span>
+      </div>
+      <div class="page-content" style="padding-top:8px; padding-bottom:160px;">
+        <div class="chat-area">
+          <!-- AI 인사 -->
+          <div class="chat-bubble assistant">
+            안녕하세요! 공사 관련 뭐든 물어보세요.<br>
+            하자 진단, 비용 적정성, 업자에게 보낼 문구까지 도와드려요.
+          </div>
+
+          <!-- 초기 추천 질문 ★ -->
+          <div class="suggestion-chips">
+            <div class="suggestion-chip">이 견적 적정한가요?</div>
+            <div class="suggestion-chip">공사 중 확인할 것</div>
+            <div class="suggestion-chip">추가금 요구 대응법</div>
+          </div>
+
+          <!-- 사용자 질문 -->
+          <div class="chat-bubble user">
+            타일 갈라졌는데 이거 하자보수 받을 수 있어?
+          </div>
+
+          <!-- AI 답변 -->
+          <div class="chat-bubble assistant">
+            <div style="font-weight:600; margin-bottom:6px;">타일 크랙 — 하자보수 가능합니다</div>
+            <div style="margin-bottom:8px;">
+              <strong>1. 하자 여부:</strong> 시공 2개월 내 발생한 줄눈 크랙은 시공 하자에 해당합니다.
+            </div>
+            <div style="margin-bottom:8px;">
+              <strong>2. 법적 근거:</strong> 건설산업기본법 시행령 별표4에 따라 타일 하자보수기간은 1년입니다.
+            </div>
+            <div style="margin-bottom:8px;">
+              <strong>3. 업자에게 보낼 카톡:</strong><br>
+              <div style="background:#e5e7eb; padding:8px; border-radius:8px; margin-top:4px; font-size:12px;">
+                "사장님, 욕실 타일 줄눈에 크랙이 발생했습니다. 시공 2개월 미만이라 하자보수 범위에 해당하는 것으로 보이는데, 확인 후 보수 일정 잡아주시면 감사하겠습니다."
+              </div>
+            </div>
+          </div>
+
+          <!-- 후속 질문 칩 -->
+          <div class="suggestion-chips">
+            <div class="suggestion-chip">하자보수 요청서 작성해줘</div>
+            <div class="suggestion-chip">안 고쳐주면 어떡해?</div>
+            <div class="suggestion-chip">소비자원 신고 방법</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 면책 고지 -->
+      <div style="position:absolute; bottom:160px; left:16px; right:16px; text-align:center;">
+        <span style="font-size:10px; color:#9ca3af;">AI 답변은 참고용이며 법적 효력이 있는 조언이 아닙니다</span>
+      </div>
+
+      <!-- 입력창 -->
+      <div class="chat-input-bar">
+        <span style="font-size:18px; cursor:pointer;">📷</span>
+        <input placeholder="메시지를 입력하세요...">
+        <button class="chat-send-btn">↑</button>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item active"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 12: 내보내기 + 설정 ★NEW -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label new">12. 내보내기/보관 ★NEW</div>
+  <div class="screen-sublabel">/projects/[id]/export — 전체 옵션</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>내보내기</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <!-- Quota 현황 -->
+        <div class="quota-bar-container">
+          <div class="quota-bar-header">
+            <span style="font-weight:600; color:#0369a1;">저장 용량</span>
+            <span style="color:#555;">3.2GB / 5GB</span>
+          </div>
+          <div class="quota-bar-track">
+            <div class="quota-bar-fill warn" style="width:64%;"></div>
+          </div>
+          <div style="font-size:10px; color:#888; margin-top:4px;">Basic 요금제 · 64% 사용 중</div>
+        </div>
+
+        <div style="font-size:15px; font-weight:700; margin-bottom:12px;">내보내기 옵션</div>
+
+        <div class="export-option">
+          <span class="export-icon">📄</span>
+          <div>
+            <div class="export-text-title">PDF 공사이력서</div>
+            <div class="export-text-desc">공사 전 과정을 요약한 PDF 1장 다운로드</div>
+          </div>
+        </div>
+
+        <div class="export-option">
+          <span class="export-icon">📦</span>
+          <div>
+            <div class="export-text-title">전체 ZIP 다운로드</div>
+            <div class="export-text-desc">사진+대화+분석결과 전부 (1.2GB)</div>
+          </div>
+        </div>
+
+        <div class="export-option" style="background:#f0fdf4; border-color:#86efac;">
+          <span class="export-icon">☁️</span>
+          <div>
+            <div class="export-text-title">장기보관 <span style="font-size:11px; color:#16a34a; font-weight:400;">(월 990원)</span></div>
+            <div class="export-text-desc">하자보수기간(1~2년) 동안 안심 보관. 언제든 열람 가능</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:12px; background:#fef9c3; border-radius:10px;">
+          <div style="font-size:12px; font-weight:600; color:#92400e;">⚠️ 무료 데이터 보관 안내</div>
+          <div style="font-size:11px; color:#555; margin-top:4px; line-height:1.5;">
+            공사 완료 후 30일 이내에 내보내기하지 않으면 데이터가 삭제됩니다.
+            장기보관 선택 시 하자보수기간까지 안전하게 유지됩니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item active"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 화면 13: PDF 미리보기 -->
+<!-- ============================================ -->
+<div class="screen-wrapper">
+  <div class="screen-label">13. PDF 미리보기</div>
+  <div class="screen-sublabel">다운로드 전 확인 화면</div>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar">
+        <span>← 뒤로</span>
+        <span>공사이력서</span>
+        <span></span>
+      </div>
+      <div class="page-content" style="padding-top:12px;">
+        <div class="pdf-preview">
+          <div class="pdf-preview-title">우리집 25평 인테리어</div>
+          <div class="pdf-meta-row"><span class="pdf-meta-label">공사 주소</span>서울시 강남구</div>
+          <div class="pdf-meta-row"><span class="pdf-meta-label">시공업체</span>행복건설</div>
+          <div class="pdf-meta-row"><span class="pdf-meta-label">계약금액</span>28,000,000원</div>
+          <div class="pdf-meta-row"><span class="pdf-meta-label">공사기간</span>3.15~4.30</div>
+          <div style="margin-top:12px; font-size:11px; color:#666;">
+            <div>📋 타임라인: 585개 항목</div>
+            <div>📷 사진: 127장</div>
+            <div>🔄 변경요청: 3건 (+39만원)</div>
+            <div>🔧 자재: 12종</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <button class="btn-primary">📥 공사 이력서 PDF 다운로드</button>
+        </div>
+        <div>
+          <button class="btn-outline">📦 전체 자료 패키지 다운로드</button>
+        </div>
+        <div style="font-size:11px; color:#999; margin-top:12px; text-align:center;">
+          무료 플랜: 워터마크 포함 | 유료: 워터마크 제거 + 상세 버전
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>홈</div>
+        <div class="nav-item"><span class="nav-icon">📤</span>업로드</div>
+        <div class="nav-item"><span class="nav-icon">📋</span>타임라인</div>
+        <div class="nav-item"><span class="nav-icon">💬</span>AI상담</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>견적</div>
+        <div class="nav-item active"><span class="nav-icon">⋯</span>더보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /screen-grid -->
+
+<!-- 추가 설명 -->
+<div style="max-width:900px; color:#fff; margin-top:60px; padding:30px; background:#16213e; border-radius:16px;">
+  <h2 style="margin-bottom:16px;">📐 구현 규칙</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px; line-height:1.8;">
+    <div>
+      <h3 style="color:#ffd700; font-size:14px;">레이아웃</h3>
+      <ul style="padding-left:16px;">
+        <li>모바일 우선 375px</li>
+        <li>하단 네비게이션 6탭 고정 (80px)</li>
+        <li>컨텐츠 영역 padding: 20px</li>
+        <li>카드 border-radius: 16px</li>
+        <li>카드 간격 margin-bottom: 12px</li>
+        <li>터치 타겟 최소 44px</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:#ffd700; font-size:14px;">색상</h3>
+      <ul style="padding-left:16px;">
+        <li>Primary: #2563eb (파랑)</li>
+        <li>Success: #16a34a (초록)</li>
+        <li>Warning: #d97706 (주황)</li>
+        <li>Danger: #dc2626 (빨강)</li>
+        <li>Gray: #6b7280, #9ca3af</li>
+        <li>Background: #f9fafb</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:#ffd700; font-size:14px;">하단 네비게이션 (6탭)</h3>
+      <ul style="padding-left:16px;">
+        <li>🏠 홈 (프로젝트 목록)</li>
+        <li>📤 업로드</li>
+        <li>📋 타임라인</li>
+        <li>💬 AI상담 ← 핵심 기능</li>
+        <li>📊 견적</li>
+        <li>⋯ 더보기 (변경/자재/설정/내보내기)</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:#ffd700; font-size:14px;">컴포넌트 (shadcn/ui)</h3>
+      <ul style="padding-left:16px;">
+        <li>Button — 버튼</li>
+        <li>Card — 프로젝트/타임라인 카드</li>
+        <li>Input — 폼 입력</li>
+        <li>Badge — 공정 분류 태그</li>
+        <li>Sheet — 모바일 바텀시트</li>
+        <li>Tabs — 필터 탭</li>
+        <li>Progress — 진행률/용량 바</li>
+        <li>ScrollArea — 채팅 스크롤</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:24px; padding-top:20px; border-top:1px solid #2a3a5e;">
+    <h3 style="color:#ffd700; font-size:14px; margin-bottom:8px;">★ v2 변경사항 (시뮬레이션 반영)</h3>
+    <ul style="padding-left:16px; font-size:12px; line-height:2; color:#ccc;">
+      <li>하단 네비 5탭→6탭 (AI상담 추가)</li>
+      <li>온보딩 화면 추가 (첫 사용자 가이드)</li>
+      <li>AI 상담 채팅 화면 추가 (핵심 기능)</li>
+      <li>내보내기/보관 통합 화면 추가 (QuotaBar + 옵션)</li>
+      <li>타임라인에 검색바 추가</li>
+      <li>견적 분석→AI 상담 연결 CTA 추가</li>
+      <li>업로드 화면에 QuotaBar 추가</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
