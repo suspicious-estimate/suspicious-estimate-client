@@ -1,11 +1,11 @@
-'use client'
-import { TimelineItem as TimelineItemType } from '@/types/timeline'
-import { CategoryBadge } from './CategoryBadge'
-import { formatTime } from '@/lib/utils'
+'use client';
+import { TimelineItem as TimelineItemType } from '@/types/timeline';
+import { CategoryBadge } from './CategoryBadge';
+import { formatTime } from '@/lib/utils';
 
 interface TimelineItemProps {
-  item: TimelineItemType
-  onCategoryClick?: (item: TimelineItemType) => void
+  item: TimelineItemType;
+  onCategoryClick?: (item: TimelineItemType) => void;
 }
 
 export function TimelineItem({ item, onCategoryClick }: TimelineItemProps) {
@@ -15,7 +15,7 @@ export function TimelineItem({ item, onCategoryClick }: TimelineItemProps) {
     document: '📄',
     memo: '📝',
     change_request: '⚠️',
-  }
+  };
 
   return (
     <div className="flex gap-3 py-3 border-b border-gray-50 last:border-0">
@@ -56,5 +56,5 @@ export function TimelineItem({ item, onCategoryClick }: TimelineItemProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

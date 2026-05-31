@@ -1,24 +1,24 @@
-'use client'
-import { TimelineItem as TimelineItemType } from '@/types/timeline'
-import { TimelineItem } from './TimelineItem'
-import { groupTimelineByDate } from '@/lib/utils'
+'use client';
+import { TimelineItem as TimelineItemType } from '@/types/timeline';
+import { TimelineItem } from './TimelineItem';
+import { groupTimelineByDate } from '@/lib/utils';
 
 interface TimelineViewProps {
-  items: TimelineItemType[]
-  onLoadMore?: () => void
-  hasMore?: boolean
-  isLoading?: boolean
+  items: TimelineItemType[];
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  isLoading?: boolean;
 }
 
 export function TimelineView({ items, onLoadMore, hasMore, isLoading }: TimelineViewProps) {
-  const grouped = groupTimelineByDate(items)
+  const grouped = groupTimelineByDate(items);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
-    )
+    );
   }
 
   if (items.length === 0) {
@@ -26,7 +26,7 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
       <div className="text-center py-12 px-4">
         <p className="text-gray-400 text-sm">타임라인 항목이 없습니다</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -58,5 +58,5 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
         </button>
       )}
     </div>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
 interface EstimateScoreProps {
-  score: number
+  score: number;
 }
 
 export function EstimateScore({ score }: EstimateScoreProps) {
   const getScoreColor = (s: number) => {
-    if (s >= 80) return { ring: 'text-green-500', bg: 'bg-green-50', label: '양호' }
-    if (s >= 60) return { ring: 'text-amber-500', bg: 'bg-amber-50', label: '주의' }
-    return { ring: 'text-red-500', bg: 'bg-red-50', label: '위험' }
-  }
+    if (s >= 80) return { ring: 'text-green-500', bg: 'bg-green-50', label: '양호' };
+    if (s >= 60) return { ring: 'text-amber-500', bg: 'bg-amber-50', label: '주의' };
+    return { ring: 'text-red-500', bg: 'bg-red-50', label: '위험' };
+  };
 
-  const { ring, bg, label } = getScoreColor(score)
+  const { ring, bg, label } = getScoreColor(score);
 
   return (
     <div className={`flex flex-col items-center py-8 rounded-xl ${bg}`}>
@@ -25,7 +25,10 @@ export function EstimateScore({ score }: EstimateScoreProps) {
         <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="42" fill="none" stroke="#e5e7eb" strokeWidth="8" />
           <circle
-            cx="50" cy="50" r="42" fill="none"
+            cx="50"
+            cy="50"
+            r="42"
+            fill="none"
             className={ring}
             stroke="currentColor"
             strokeWidth="8"
@@ -40,5 +43,5 @@ export function EstimateScore({ score }: EstimateScoreProps) {
       </div>
       <span className={`mt-3 text-sm font-medium ${ring}`}>{label}</span>
     </div>
-  )
+  );
 }

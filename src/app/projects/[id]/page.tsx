@@ -1,14 +1,14 @@
-'use client'
-import { use } from 'react'
-import Link from 'next/link'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { useProject } from '@/hooks/useProject'
-import { formatCurrency } from '@/lib/utils'
+'use client';
+import { use } from 'react';
+import Link from 'next/link';
+import { MobileLayout } from '@/components/layout/MobileLayout';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { useProject } from '@/hooks/useProject';
+import { formatCurrency } from '@/lib/utils';
 
 export default function ProjectDashboardPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
-  const { project, isLoading } = useProject(id)
+  const { id } = use(params);
+  const { project, isLoading } = useProject(id);
 
   if (isLoading || !project) {
     return (
@@ -17,7 +17,7 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
           <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
       </MobileLayout>
-    )
+    );
   }
 
   const quickActions = [
@@ -25,7 +25,7 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
     { icon: '📋', label: '타임라인', href: `/projects/${id}/timeline` },
     { icon: '💬', label: 'AI 상담', href: `/projects/${id}/assistant` },
     { icon: '📊', label: '견적 분석', href: `/projects/${id}/estimate` },
-  ]
+  ];
 
   return (
     <MobileLayout>
@@ -40,17 +40,25 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-lg font-bold text-gray-900">{project.title}</h1>
             <span className="px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-              {project.status === 'active' ? '진행중' : project.status === 'completed' ? '완료' : project.status}
+              {project.status === 'active'
+                ? '진행중'
+                : project.status === 'completed'
+                  ? '완료'
+                  : project.status}
             </span>
           </div>
           {project.contractor_name && (
             <p className="text-sm text-gray-600 mb-1">🏗️ {project.contractor_name}</p>
           )}
           {project.contract_amount && (
-            <p className="text-sm text-gray-600 mb-1">💰 {formatCurrency(project.contract_amount)}</p>
+            <p className="text-sm text-gray-600 mb-1">
+              💰 {formatCurrency(project.contract_amount)}
+            </p>
           )}
           {project.start_date && (
-            <p className="text-sm text-gray-500">📅 {project.start_date} ~ {project.end_date || '미정'}</p>
+            <p className="text-sm text-gray-500">
+              📅 {project.start_date} ~ {project.end_date || '미정'}
+            </p>
           )}
         </div>
 
@@ -76,5 +84,5 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
       </div>
       <BottomNav projectId={id} />
     </MobileLayout>
-  )
+  );
 }

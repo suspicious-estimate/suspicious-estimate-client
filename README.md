@@ -110,17 +110,17 @@ src/
 
 ## 작업 순서
 
-| # | 작업 | 설명 | 우선순위 |
-|---|------|------|----------|
-| 1 | shadcn/ui 설정 | init + 컴포넌트 추가 | 즉시 |
-| 2 | 모바일 레이아웃 | MobileLayout + BottomNav (6탭) | 즉시 |
-| 3 | 로그인 페이지 | 카카오 로그인 버튼 (UI만 먼저) | 즉시 |
-| 4 | 프로젝트 목록/생성 | ProjectCard + ProjectForm | 즉시 |
-| 5 | 파일 업로드 | 드래그앤드롭 + QuotaBar | 다음 |
-| 6 | 타임라인 뷰 | 시간순 스크롤 + 공정태그 + 필터 | 다음 |
-| 7 | AI 상담 채팅 ★ | ChatView + SuggestionChips | 다음 |
-| 8 | 내보내기 | PDF/ZIP 다운로드 + 아카이브 | 후순위 |
-| 9 | 설정 (요금제/용량) | StorageUsage + 업그레이드 | 후순위 |
+| #   | 작업               | 설명                            | 우선순위 |
+| --- | ------------------ | ------------------------------- | -------- |
+| 1   | shadcn/ui 설정     | init + 컴포넌트 추가            | 즉시     |
+| 2   | 모바일 레이아웃    | MobileLayout + BottomNav (6탭)  | 즉시     |
+| 3   | 로그인 페이지      | 카카오 로그인 버튼 (UI만 먼저)  | 즉시     |
+| 4   | 프로젝트 목록/생성 | ProjectCard + ProjectForm       | 즉시     |
+| 5   | 파일 업로드        | 드래그앤드롭 + QuotaBar         | 다음     |
+| 6   | 타임라인 뷰        | 시간순 스크롤 + 공정태그 + 필터 | 다음     |
+| 7   | AI 상담 채팅 ★     | ChatView + SuggestionChips      | 다음     |
+| 8   | 내보내기           | PDF/ZIP 다운로드 + 아카이브     | 후순위   |
+| 9   | 설정 (요금제/용량) | StorageUsage + 업그레이드       | 후순위   |
 
 **일단 1~4단계 먼저 해줘. API 연동은 나중에, UI만 먼저 (목데이터로).**
 
@@ -134,6 +134,7 @@ src/
 ## 백엔드 API (Base URL: 추후 공유)
 
 ### 기존 API
+
 ```
 POST   /api/auth/kakao                     카카오 로그인
 GET    /api/projects                        내 프로젝트 목록
@@ -152,6 +153,7 @@ POST   /api/projects/{id}/export/pdf        PDF 생성
 ```
 
 ### 신규 API ★
+
 ```
 POST   /api/projects/{id}/export/zip        전체 ZIP 다운로드
 POST   /api/projects/{id}/archive           장기보관 전환
@@ -165,6 +167,7 @@ GET    /api/assistant/templates             문서 템플릿 목록
 ### AI 상담 API 상세
 
 **POST /api/assistant/chat**
+
 ```json
 // Request
 {

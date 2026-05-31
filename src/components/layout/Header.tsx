@@ -1,11 +1,11 @@
-'use client'
-import Link from 'next/link'
+'use client';
+import Link from 'next/link';
 
 interface HeaderProps {
-  title: string
-  backHref?: string
-  rightAction?: { label: string; onClick: () => void }
-  rightText?: string
+  title: string;
+  backHref?: string;
+  rightAction?: { label: string; onClick: () => void };
+  rightText?: string;
 }
 
 export function Header({ title, backHref, rightAction, rightText }: HeaderProps) {
@@ -39,5 +39,5 @@ export function Header({ title, backHref, rightAction, rightText }: HeaderProps)
         </div>
       </div>
     </header>
-  )
+  );
 }

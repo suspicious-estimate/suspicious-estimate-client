@@ -20,6 +20,7 @@
 ## 2. 환경 설정 (최초 1회)
 
 ### 필요한 것
+
 - Node.js 20 이상 (`node -v`로 확인, 없으면 https://nodejs.org)
 - VS Code (추천)
 - Chrome 브라우저
@@ -53,6 +54,7 @@ npm run dev
 **`frontend-mockup.html`** 파일을 브라우저에서 열면 완성된 디자인 13화면이 보입니다.
 
 사용법:
+
 1. 브라우저에서 `frontend-mockup.html` 열기
 2. 상단 탭으로 화면 전환 (1~13번)
 3. Chrome DevTools(F12) > Elements 탭에서 HTML/CSS 직접 복사 가능
@@ -60,19 +62,19 @@ npm run dev
 
 **화면 번호 ↔ 컴포넌트 매핑:**
 
-| 목업 화면 | 관련 컴포넌트 파일 |
-|----------|-------------------|
-| 2번 온보딩 | `common/OnboardingGuide.tsx` |
-| 3번 프로젝트 목록 | `project/ProjectCard.tsx` |
-| 4번 새 프로젝트 | `project/ProjectForm.tsx` (이미 거의 완성) |
-| 5번 업로드 | `upload/FileUploader.tsx`, `upload/QuotaBar.tsx` |
-| 5-2번 처리중 | `upload/UploadProgress.tsx` |
-| 6번 타임라인 | `timeline/TimelineView.tsx`, `TimelineItem.tsx`, `CategoryFilter.tsx`, `SearchBar.tsx` |
-| 7번 대시보드 | 페이지(`app/projects/[id]/page.tsx`)에 이미 구현됨 |
-| 8번 AI상담 | `assistant/ChatView.tsx`, `ChatBubble.tsx`, `ChatInput.tsx`, `SuggestionChips.tsx` |
-| 9번 견적분석 | `estimate/EstimateScore.tsx`, `RiskItem.tsx`, `MissingItem.tsx` |
-| 11번 내보내기 | `export/ExportOptions.tsx`, `export/StorageUsage.tsx` |
-| 12번 설정 | 페이지(`app/settings/page.tsx`)에 이미 구현됨 |
+| 목업 화면         | 관련 컴포넌트 파일                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| 2번 온보딩        | `common/OnboardingGuide.tsx`                                                           |
+| 3번 프로젝트 목록 | `project/ProjectCard.tsx`                                                              |
+| 4번 새 프로젝트   | `project/ProjectForm.tsx` (이미 거의 완성)                                             |
+| 5번 업로드        | `upload/FileUploader.tsx`, `upload/QuotaBar.tsx`                                       |
+| 5-2번 처리중      | `upload/UploadProgress.tsx`                                                            |
+| 6번 타임라인      | `timeline/TimelineView.tsx`, `TimelineItem.tsx`, `CategoryFilter.tsx`, `SearchBar.tsx` |
+| 7번 대시보드      | 페이지(`app/projects/[id]/page.tsx`)에 이미 구현됨                                     |
+| 8번 AI상담        | `assistant/ChatView.tsx`, `ChatBubble.tsx`, `ChatInput.tsx`, `SuggestionChips.tsx`     |
+| 9번 견적분석      | `estimate/EstimateScore.tsx`, `RiskItem.tsx`, `MissingItem.tsx`                        |
+| 11번 내보내기     | `export/ExportOptions.tsx`, `export/StorageUsage.tsx`                                  |
+| 12번 설정         | 페이지(`app/settings/page.tsx`)에 이미 구현됨                                          |
 
 ---
 
@@ -95,7 +97,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       <p className="text-gray-400 text-sm">ProjectCard — 목업 참고하여 구현</p>
       <p className="font-medium">{project.title}</p>
     </button>
-  )
+  );
 }
 ```
 
@@ -104,7 +106,10 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
 ```tsx
 export function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
-    <button onClick={onClick} className="w-full text-left bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-200 hover:shadow-sm transition-all">
+    <button
+      onClick={onClick}
+      className="w-full text-left bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-200 hover:shadow-sm transition-all"
+    >
       <div className="flex items-center justify-between mb-2">
         <h3 className="font-semibold text-gray-900">{project.title}</h3>
         <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
@@ -117,7 +122,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
         {project.contract_amount && <span>💰 {formatCurrency(project.contract_amount)}</span>}
       </div>
     </button>
-  )
+  );
 }
 ```
 
@@ -163,28 +168,28 @@ src/components/          ★ 여기만 수정
 
 ## 6. 작업 순서 (추천)
 
-| 순서 | 파일 | 난이도 | 소요시간 |
-|------|------|--------|---------|
-| 1 | `project/ProjectCard.tsx` | 쉬움 | 20분 |
-| 2 | `timeline/TimelineItem.tsx` | 보통 | 30분 |
-| 3 | `timeline/TimelineView.tsx` | 보통 | 40분 |
-| 4 | `assistant/ChatBubble.tsx` | 쉬움 | 15분 |
-| 5 | `assistant/ChatInput.tsx` | 쉬움 | 15분 |
-| 6 | `assistant/ChatView.tsx` | 보통 | 30분 |
-| 7 | `assistant/SuggestionChips.tsx` | 쉬움 | 10분 |
-| 8 | `upload/FileUploader.tsx` | 보통 | 30분 |
-| 9 | `upload/UploadProgress.tsx` | 보통 | 25분 |
-| 10 | `upload/QuotaBar.tsx` | 쉬움 | 15분 |
-| 11 | `estimate/RiskItem.tsx` | 쉬움 | 10분 |
-| 12 | `estimate/MissingItem.tsx` | 쉬움 | 10분 |
-| 13 | `estimate/EstimateScore.tsx` | 이미 됨 | 확인만 |
-| 14 | `common/OnboardingGuide.tsx` | 보통 | 25분 |
-| 15 | `common/EmptyState.tsx` | 쉬움 | 10분 |
-| 16 | `export/ExportOptions.tsx` | 쉬움 | 15분 |
-| 17 | `export/StorageUsage.tsx` | 쉬움 | 10분 |
-| 18 | `timeline/CategoryFilter.tsx` | 이미 됨 | 확인만 |
-| 19 | `timeline/SearchBar.tsx` | 이미 됨 | 확인만 |
-| 20 | `project/ProjectForm.tsx` | 이미 됨 | 확인만 |
+| 순서 | 파일                            | 난이도  | 소요시간 |
+| ---- | ------------------------------- | ------- | -------- |
+| 1    | `project/ProjectCard.tsx`       | 쉬움    | 20분     |
+| 2    | `timeline/TimelineItem.tsx`     | 보통    | 30분     |
+| 3    | `timeline/TimelineView.tsx`     | 보통    | 40분     |
+| 4    | `assistant/ChatBubble.tsx`      | 쉬움    | 15분     |
+| 5    | `assistant/ChatInput.tsx`       | 쉬움    | 15분     |
+| 6    | `assistant/ChatView.tsx`        | 보통    | 30분     |
+| 7    | `assistant/SuggestionChips.tsx` | 쉬움    | 10분     |
+| 8    | `upload/FileUploader.tsx`       | 보통    | 30분     |
+| 9    | `upload/UploadProgress.tsx`     | 보통    | 25분     |
+| 10   | `upload/QuotaBar.tsx`           | 쉬움    | 15분     |
+| 11   | `estimate/RiskItem.tsx`         | 쉬움    | 10분     |
+| 12   | `estimate/MissingItem.tsx`      | 쉬움    | 10분     |
+| 13   | `estimate/EstimateScore.tsx`    | 이미 됨 | 확인만   |
+| 14   | `common/OnboardingGuide.tsx`    | 보통    | 25분     |
+| 15   | `common/EmptyState.tsx`         | 쉬움    | 10분     |
+| 16   | `export/ExportOptions.tsx`      | 쉬움    | 15분     |
+| 17   | `export/StorageUsage.tsx`       | 쉬움    | 10분     |
+| 18   | `timeline/CategoryFilter.tsx`   | 이미 됨 | 확인만   |
+| 19   | `timeline/SearchBar.tsx`        | 이미 됨 | 확인만   |
+| 20   | `project/ProjectForm.tsx`       | 이미 됨 | 확인만   |
 
 **예상 총 소요: 5~7시간** (하루이틀 작업)
 
@@ -205,22 +210,22 @@ src/components/          ★ 여기만 수정
 ## 8. 자주 쓰는 유틸 함수
 
 ```tsx
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency } from '@/lib/utils';
 // formatCurrency(28000000) → "2,800만원"
 
-import { formatDate } from '@/lib/utils'
+import { formatDate } from '@/lib/utils';
 // formatDate('2024-03-15T09:00:00Z') → "3월 15일 금요일"
 
-import { formatTime } from '@/lib/utils'
+import { formatTime } from '@/lib/utils';
 // formatTime('2024-03-15T13:30:00Z') → "오후 1:30"
 
-import { formatFileSize } from '@/lib/utils'
+import { formatFileSize } from '@/lib/utils';
 // formatFileSize(1288490188) → "1.2GB"
 
-import { getCategoryInfo } from '@/lib/utils'
+import { getCategoryInfo } from '@/lib/utils';
 // getCategoryInfo('tiling') → { id: 'tiling', name: '타일', color: '#0891b2', bgColor: '#cffafe' }
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
 // cn('text-sm', isActive && 'text-blue-600', !isActive && 'text-gray-400')
 ```
 
@@ -229,25 +234,28 @@ import { cn } from '@/lib/utils'
 ## 9. 확인하는 법
 
 ### 타입 에러 확인
+
 ```bash
 npm run build
 ```
+
 에러 없이 끝나야 정상.
 
 ### 화면 확인 (이 페이지들이 다 보여야 함)
 
-| URL | 화면 |
-|-----|------|
-| `/projects` | 프로젝트 카드 2개 |
-| `/projects/proj-001` | 대시보드 + 퀵액션 4개 |
-| `/projects/proj-001/timeline` | 타임라인 10개 항목 + 필터 |
-| `/projects/proj-001/upload` | QuotaBar + 드래그 영역 |
-| `/projects/proj-001/estimate` | 점수 72 + 리스크 3 + 빠진 2 |
-| `/projects/proj-001/assistant` | 채팅 UI + 추천 질문 |
-| `/projects/proj-001/export` | 내보내기 옵션 3개 |
-| `/settings` | 프로필 + 요금제 + 로그아웃 |
+| URL                            | 화면                        |
+| ------------------------------ | --------------------------- |
+| `/projects`                    | 프로젝트 카드 2개           |
+| `/projects/proj-001`           | 대시보드 + 퀵액션 4개       |
+| `/projects/proj-001/timeline`  | 타임라인 10개 항목 + 필터   |
+| `/projects/proj-001/upload`    | QuotaBar + 드래그 영역      |
+| `/projects/proj-001/estimate`  | 점수 72 + 리스크 3 + 빠진 2 |
+| `/projects/proj-001/assistant` | 채팅 UI + 추천 질문         |
+| `/projects/proj-001/export`    | 내보내기 옵션 3개           |
+| `/settings`                    | 프로필 + 요금제 + 로그아웃  |
 
 ### 모바일 확인
+
 Chrome > F12 > 상단 디바이스 아이콘 클릭 > iPhone SE (375px) 선택
 
 ---

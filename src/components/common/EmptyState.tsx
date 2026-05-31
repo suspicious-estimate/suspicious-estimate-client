@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 interface EmptyStateProps {
-  icon: string
-  title: string
-  description: string
-  action?: { label: string; onClick: () => void }
+  icon: string;
+  title: string;
+  description: string;
+  action?: { label: string; onClick: () => void };
 }
 
 export function EmptyState({ icon, title, description, action }: EmptyStateProps) {
@@ -22,5 +22,5 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
         </button>
       )}
     </div>
-  )
+  );
 }

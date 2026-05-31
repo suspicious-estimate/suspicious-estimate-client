@@ -1,12 +1,12 @@
-'use client'
-import { ChatMessage } from '@/types/assistant'
+'use client';
+import { ChatMessage } from '@/types/assistant';
 
 interface ChatBubbleProps {
-  message: ChatMessage
+  message: ChatMessage;
 }
 
 export function ChatBubble({ message }: ChatBubbleProps) {
-  const isUser = message.role === 'user'
+  const isUser = message.role === 'user';
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -26,12 +26,12 @@ export function ChatBubble({ message }: ChatBubbleProps) {
         <div className="whitespace-pre-wrap break-words">
           {message.content.split(/(\*\*[^*]+\*\*)/).map((part, i) => {
             if (part.startsWith('**') && part.endsWith('**')) {
-              return <strong key={i}>{part.slice(2, -2)}</strong>
+              return <strong key={i}>{part.slice(2, -2)}</strong>;
             }
-            return <span key={i}>{part}</span>
+            return <span key={i}>{part}</span>;
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }

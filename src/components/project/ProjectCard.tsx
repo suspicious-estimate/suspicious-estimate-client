@@ -1,10 +1,10 @@
-'use client'
-import { Project } from '@/types/project'
-import { formatCurrency } from '@/lib/utils'
+'use client';
+import { Project } from '@/types/project';
+import { formatCurrency } from '@/lib/utils';
 
 interface ProjectCardProps {
-  project: Project
-  onClick: () => void
+  project: Project;
+  onClick: () => void;
 }
 
 export function ProjectCard({ project, onClick }: ProjectCardProps) {
@@ -29,5 +29,5 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
         <p className="text-sm text-gray-600">{formatCurrency(project.contract_amount)}</p>
       )}
     </button>
-  )
+  );
 }

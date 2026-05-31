@@ -1,32 +1,26 @@
-'use client'
-import { use } from 'react'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { Header } from '@/components/layout/Header'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { QuotaBar } from '@/components/upload/QuotaBar'
-import { FileUploader } from '@/components/upload/FileUploader'
-import { UploadProgress } from '@/components/upload/UploadProgress'
-import { useUpload } from '@/hooks/useUpload'
-import { useQuota } from '@/hooks/useQuota'
+'use client';
+import { use } from 'react';
+import { MobileLayout } from '@/components/layout/MobileLayout';
+import { Header } from '@/components/layout/Header';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { QuotaBar } from '@/components/upload/QuotaBar';
+import { FileUploader } from '@/components/upload/FileUploader';
+import { UploadProgress } from '@/components/upload/UploadProgress';
+import { useUpload } from '@/hooks/useUpload';
+import { useQuota } from '@/hooks/useQuota';
 
 export default function UploadPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
-  const { upload, status, progress, steps, error, reset } = useUpload(id)
-  const { used, limit, plan, fileCount, fileLimit } = useQuota()
+  const { id } = use(params);
+  const { upload, status, progress, steps, error, reset } = useUpload(id);
+  const { used, limit, plan, fileCount, fileLimit } = useQuota();
 
-  const isProcessing = status === 'uploading' || status === 'processing'
+  const isProcessing = status === 'uploading' || status === 'processing';
 
   return (
     <MobileLayout>
       <Header title="자료 올리기" backHref={`/projects/${id}`} />
 
-      <QuotaBar
-        used={used}
-        limit={limit}
-        plan={plan}
-        fileCount={fileCount}
-        fileLimit={fileLimit}
-      />
+      <QuotaBar used={used} limit={limit} plan={plan} fileCount={fileCount} fileLimit={fileLimit} />
 
       {status === 'idle' || status === 'error' ? (
         <>
@@ -52,12 +46,12 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
       ) : (
         <UploadProgress
           steps={steps}
-          currentStep={steps.findIndex(s => s.status === 'processing')}
+          currentStep={steps.findIndex((s) => s.status === 'processing')}
           estimatedTime="약 30초~1분"
         />
       )}
 
       <BottomNav projectId={id} />
     </MobileLayout>
-  )
+  );
 }

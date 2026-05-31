@@ -1,9 +1,9 @@
-'use client'
-import { useState } from 'react'
+'use client';
+import { useState } from 'react';
 
 interface OnboardingGuideProps {
-  onSkip: () => void
-  onStart: () => void
+  onSkip: () => void;
+  onStart: () => void;
 }
 
 const STEPS = [
@@ -22,10 +22,10 @@ const STEPS = [
     title: '분쟁 대비',
     description: '타임라인과 AI 상담으로 공사 과정을 체계적으로 관리하세요.',
   },
-]
+];
 
 export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(0);
 
   return (
     <div className="flex flex-col items-center px-6 py-8">
@@ -55,7 +55,7 @@ export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
       <div className="w-full space-y-3">
         {currentStep < STEPS.length - 1 ? (
           <button
-            onClick={() => setCurrentStep(prev => prev + 1)}
+            onClick={() => setCurrentStep((prev) => prev + 1)}
             className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             다음
@@ -76,5 +76,5 @@ export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
         </button>
       </div>
     </div>
-  )
+  );
 }

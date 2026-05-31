@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 interface RiskItemProps {
-  level: 'high' | 'medium' | 'low'
-  title: string
-  description: string
+  level: 'high' | 'medium' | 'low';
+  title: string;
+  description: string;
 }
 
 export function RiskItem({ level, title, description }: RiskItemProps) {
@@ -11,9 +11,9 @@ export function RiskItem({ level, title, description }: RiskItemProps) {
     high: { icon: '🔴', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-800' },
     medium: { icon: '🟡', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-800' },
     low: { icon: '📋', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-800' },
-  }
+  };
 
-  const style = levelStyles[level]
+  const style = levelStyles[level];
 
   return (
     <div className={`p-3 rounded-lg border ${style.bg} ${style.border}`}>
@@ -30,5 +30,5 @@ export function RiskItem({ level, title, description }: RiskItemProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

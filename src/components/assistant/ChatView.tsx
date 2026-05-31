@@ -1,24 +1,30 @@
-'use client'
-import { useRef, useEffect } from 'react'
-import { ChatMessage } from '@/types/assistant'
-import { ChatBubble } from './ChatBubble'
-import { ChatInput } from './ChatInput'
-import { SuggestionChips } from './SuggestionChips'
+'use client';
+import { useRef, useEffect } from 'react';
+import { ChatMessage } from '@/types/assistant';
+import { ChatBubble } from './ChatBubble';
+import { ChatInput } from './ChatInput';
+import { SuggestionChips } from './SuggestionChips';
 
 interface ChatViewProps {
-  messages: ChatMessage[]
-  suggestions: string[]
-  onSend: (msg: string) => void
-  onSuggestionClick: (s: string) => void
-  isLoading?: boolean
+  messages: ChatMessage[];
+  suggestions: string[];
+  onSend: (msg: string) => void;
+  onSuggestionClick: (s: string) => void;
+  isLoading?: boolean;
 }
 
-export function ChatView({ messages, suggestions, onSend, onSuggestionClick, isLoading }: ChatViewProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
+export function ChatView({
+  messages,
+  suggestions,
+  onSend,
+  onSuggestionClick,
+  isLoading,
+}: ChatViewProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
-  }, [messages])
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
@@ -52,5 +58,5 @@ export function ChatView({ messages, suggestions, onSend, onSuggestionClick, isL
         <ChatInput onSend={onSend} disabled={isLoading} />
       </div>
     </div>
-  )
+  );
 }
