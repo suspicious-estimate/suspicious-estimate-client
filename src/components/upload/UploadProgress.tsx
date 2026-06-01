@@ -1,10 +1,10 @@
-'use client'
-import { UploadStep } from '@/types/common'
+'use client';
+import { UploadStep } from '@/types/common';
 
 interface UploadProgressProps {
-  steps: UploadStep[]
-  currentStep: number
-  estimatedTime?: string
+  steps: UploadStep[];
+  currentStep: number;
+  estimatedTime?: string;
 }
 
 export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProgressProps) {
@@ -13,7 +13,7 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
     processing: '⚙️',
     completed: '✅',
     failed: '❌',
-  }
+  };
 
   return (
     <div className="p-4 space-y-4">
@@ -39,8 +39,8 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
               step.status === 'processing'
                 ? 'border-blue-200 bg-blue-50'
                 : step.status === 'completed'
-                ? 'border-green-200 bg-green-50'
-                : 'border-gray-200 bg-gray-50'
+                  ? 'border-green-200 bg-green-50'
+                  : 'border-gray-200 bg-gray-50'
             }`}
           >
             <span className="text-lg">
@@ -51,16 +51,18 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
               )}
             </span>
             <div className="flex-1">
-              <p className={`text-sm font-medium ${
-                step.status === 'completed' ? 'text-green-700' :
-                step.status === 'processing' ? 'text-blue-700' :
-                'text-gray-500'
-              }`}>
+              <p
+                className={`text-sm font-medium ${
+                  step.status === 'completed'
+                    ? 'text-green-700'
+                    : step.status === 'processing'
+                      ? 'text-blue-700'
+                      : 'text-gray-500'
+                }`}
+              >
                 {step.label}
               </p>
-              {step.detail && (
-                <p className="text-xs text-gray-500 mt-0.5">{step.detail}</p>
-              )}
+              {step.detail && <p className="text-xs text-gray-500 mt-0.5">{step.detail}</p>}
               {step.status === 'processing' && step.progress !== undefined && (
                 <div className="w-full h-1.5 bg-blue-200 rounded-full mt-1.5">
                   <div
@@ -74,5 +76,5 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
         ))}
       </div>
     </div>
-  )
+  );
 }

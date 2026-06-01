@@ -1,33 +1,36 @@
-'use client'
-import { useCallback, useRef, useState } from 'react'
+'use client';
+import { useCallback, useRef, useState } from 'react';
 
 interface FileUploaderProps {
-  onFilesSelected: (files: File[]) => void
-  disabled?: boolean
+  onFilesSelected: (files: File[]) => void;
+  disabled?: boolean;
 }
 
 export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
-  const [isDragging, setIsDragging] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-    if (disabled) return
-    const files = Array.from(e.dataTransfer.files)
-    if (files.length > 0) onFilesSelected(files)
-  }, [onFilesSelected, disabled])
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      if (disabled) return;
+      const files = Array.from(e.dataTransfer.files);
+      if (files.length > 0) onFilesSelected(files);
+    },
+    [onFilesSelected, disabled],
+  );
 
   const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    if (!disabled) setIsDragging(true)
-  }
+    e.preventDefault();
+    if (!disabled) setIsDragging(true);
+  };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-    if (files.length > 0) onFilesSelected(files)
-    e.target.value = ''
-  }
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) onFilesSelected(files);
+    e.target.value = '';
+  };
 
   return (
     <div className="p-4 space-y-4">
@@ -92,5 +95,5 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
 
       <p className="text-xs text-center text-gray-400">여러 파일을 동시에 업로드할 수 있어요</p>
     </div>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { MobileLayout } from '@/components/layout/MobileLayout'
+'use client';
+import { useRouter } from 'next/navigation';
+import { MobileLayout } from '@/components/layout/MobileLayout';
 
 export default function LoginPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleKakaoLogin = () => {
     // TODO: 실제 카카오 OAuth 연동
     // window.location.href = `${API_BASE}/auth/kakao/login`
-    router.push('/projects')
-  }
+    router.push('/projects');
+  };
 
   return (
     <MobileLayout>
@@ -18,7 +18,8 @@ export default function LoginPage() {
           <div className="text-6xl mb-4">🏠</div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">수상한견적서</h1>
           <p className="text-sm text-gray-500 leading-relaxed">
-            인테리어 공사의 모든 과정을<br />
+            인테리어 공사의 모든 과정을
+            <br />
             안전하게 기록하고 관리하세요
           </p>
         </div>
@@ -29,7 +30,10 @@ export default function LoginPage() {
             className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#FEE500] text-[#191919] font-medium rounded-xl hover:bg-[#FDD835] transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M9 1C4.58 1 1 3.79 1 7.21c0 2.17 1.44 4.08 3.62 5.17l-.93 3.44c-.08.3.26.54.52.37l4.1-2.72c.22.02.44.03.67.03 4.42 0 8-2.79 8-6.23S13.42 1 9 1z" fill="#191919"/>
+              <path
+                d="M9 1C4.58 1 1 3.79 1 7.21c0 2.17 1.44 4.08 3.62 5.17l-.93 3.44c-.08.3.26.54.52.37l4.1-2.72c.22.02.44.03.67.03 4.42 0 8-2.79 8-6.23S13.42 1 9 1z"
+                fill="#191919"
+              />
             </svg>
             카카오로 시작하기
           </button>
@@ -40,5 +44,5 @@ export default function LoginPage() {
         </div>
       </div>
     </MobileLayout>
-  )
+  );
 }

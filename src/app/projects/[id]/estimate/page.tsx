@@ -1,21 +1,21 @@
-'use client'
-import { use } from 'react'
-import Link from 'next/link'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { Header } from '@/components/layout/Header'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { EstimateScore } from '@/components/estimate/EstimateScore'
-import { RiskItem } from '@/components/estimate/RiskItem'
-import { MissingItem } from '@/components/estimate/MissingItem'
-import { EmptyState } from '@/components/common/EmptyState'
-import { MOCK_ESTIMATE } from '@/lib/mock-data'
+'use client';
+import { use } from 'react';
+import Link from 'next/link';
+import { MobileLayout } from '@/components/layout/MobileLayout';
+import { Header } from '@/components/layout/Header';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { EstimateScore } from '@/components/estimate/EstimateScore';
+import { RiskItem } from '@/components/estimate/RiskItem';
+import { MissingItem } from '@/components/estimate/MissingItem';
+import { EmptyState } from '@/components/common/EmptyState';
+import { MOCK_ESTIMATE } from '@/lib/mock-data';
 
 export default function EstimatePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+  const { id } = use(params);
 
   // TODO: useEstimate(id) 훅으로 교체
-  const estimate = MOCK_ESTIMATE
-  const hasEstimate = estimate !== null
+  const estimate = MOCK_ESTIMATE;
+  const hasEstimate = estimate !== null;
 
   if (!hasEstimate) {
     return (
@@ -29,7 +29,7 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
         />
         <BottomNav projectId={id} />
       </MobileLayout>
-    )
+    );
   }
 
   return (
@@ -67,11 +67,7 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
           </h2>
           <div className="space-y-2">
             {estimate.missing_items.map((item, idx) => (
-              <MissingItem
-                key={idx}
-                title={item.title}
-                description={item.description}
-              />
+              <MissingItem key={idx} title={item.title} description={item.description} />
             ))}
           </div>
         </section>
@@ -87,5 +83,5 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
 
       <BottomNav projectId={id} />
     </MobileLayout>
-  )
+  );
 }

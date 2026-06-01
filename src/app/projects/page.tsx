@@ -1,14 +1,14 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { ProjectCard } from '@/components/project/ProjectCard'
-import { OnboardingGuide } from '@/components/common/OnboardingGuide'
-import { useProjects } from '@/hooks/useProject'
+'use client';
+import { useRouter } from 'next/navigation';
+import { MobileLayout } from '@/components/layout/MobileLayout';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { ProjectCard } from '@/components/project/ProjectCard';
+import { OnboardingGuide } from '@/components/common/OnboardingGuide';
+import { useProjects } from '@/hooks/useProject';
 
 export default function ProjectsPage() {
-  const router = useRouter()
-  const { projects, isLoading } = useProjects()
+  const router = useRouter();
+  const { projects, isLoading } = useProjects();
 
   if (isLoading) {
     return (
@@ -17,7 +17,7 @@ export default function ProjectsPage() {
           <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
       </MobileLayout>
-    )
+    );
   }
 
   if (projects.length === 0) {
@@ -31,7 +31,7 @@ export default function ProjectsPage() {
         </div>
         <BottomNav />
       </MobileLayout>
-    )
+    );
   }
 
   return (
@@ -59,5 +59,5 @@ export default function ProjectsPage() {
       </div>
       <BottomNav />
     </MobileLayout>
-  )
+  );
 }

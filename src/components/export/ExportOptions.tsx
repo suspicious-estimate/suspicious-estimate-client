@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 interface ExportOptionsProps {
-  onPdf: () => void
-  onZip: () => void
-  onArchive: () => void
+  onPdf: () => void;
+  onZip: () => void;
+  onArchive: () => void;
 }
 
 export function ExportOptions({ onPdf, onZip, onArchive }: ExportOptionsProps) {
@@ -26,7 +26,7 @@ export function ExportOptions({ onPdf, onZip, onArchive }: ExportOptionsProps) {
       description: '프로젝트 아카이브 (읽기 전용)',
       onClick: onArchive,
     },
-  ]
+  ];
 
   return (
     <div className="p-4 space-y-3">
@@ -50,5 +50,5 @@ export function ExportOptions({ onPdf, onZip, onArchive }: ExportOptionsProps) {
         </button>
       ))}
     </div>
-  )
+  );
 }

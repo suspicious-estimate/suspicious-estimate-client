@@ -1,14 +1,14 @@
-'use client'
-import { formatFileSize } from '@/lib/utils'
+'use client';
+import { formatFileSize } from '@/lib/utils';
 
 interface StorageUsageProps {
-  used: number
-  limit: number
-  plan: string
+  used: number;
+  limit: number;
+  plan: string;
 }
 
 export function StorageUsage({ used, limit, plan }: StorageUsageProps) {
-  const percentage = Math.min((used / limit) * 100, 100)
+  const percentage = Math.min((used / limit) * 100, 100);
 
   return (
     <div className="p-4">
@@ -37,5 +37,5 @@ export function StorageUsage({ used, limit, plan }: StorageUsageProps) {
         </p>
       </div>
     </div>
-  )
+  );
 }

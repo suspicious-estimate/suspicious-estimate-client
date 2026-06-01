@@ -1,7 +1,7 @@
-import { Project } from '@/types/project'
-import { TimelineItem, ChangeRequest, Material } from '@/types/timeline'
-import { ChatMessage } from '@/types/assistant'
-import { UploadStep, StorageUsage } from '@/types/common'
+import { Project } from '@/types/project';
+import { TimelineItem, ChangeRequest, Material } from '@/types/timeline';
+import { ChatMessage } from '@/types/assistant';
+import { UploadStep, StorageUsage } from '@/types/common';
 
 export const MOCK_PROJECTS: Project[] = [
   {
@@ -36,7 +36,7 @@ export const MOCK_PROJECTS: Project[] = [
     timeline_count: 112,
     photo_count: 23,
   },
-]
+];
 
 export const MOCK_TIMELINE_ITEMS: TimelineItem[] = [
   {
@@ -164,7 +164,7 @@ export const MOCK_TIMELINE_ITEMS: TimelineItem[] = [
     category_confirmed: true,
     created_at: '2024-03-25T14:00:00Z',
   },
-]
+];
 
 export const MOCK_CHANGE_REQUESTS: ChangeRequest[] = [
   {
@@ -199,15 +199,65 @@ export const MOCK_CHANGE_REQUESTS: ChangeRequest[] = [
     requested_by: 'contractor',
     requested_at: '2024-03-25T14:00:00Z',
   },
-]
+];
 
 export const MOCK_MATERIALS: Material[] = [
-  { id: 'mat-001', project_id: 'proj-001', name: '포세린 타일 600x600', category: 'tiling', specification: '이탈리아산 무광', unit_price: 35000, quantity: 42, unit: '장', created_at: '2024-03-10T09:00:00Z' },
-  { id: 'mat-002', project_id: 'proj-001', name: '실크 벽지', category: 'painting', specification: 'LG하우시스 ZN062', unit_price: 25000, quantity: 30, unit: '롤', created_at: '2024-03-10T09:00:00Z' },
-  { id: 'mat-003', project_id: 'proj-001', name: '전선 HIV 2.5sq', category: 'electrical', specification: '대한전선', unit_price: 800, quantity: 200, unit: 'm', created_at: '2024-03-10T09:00:00Z' },
-  { id: 'mat-004', project_id: 'proj-001', name: '강화마루', category: 'flooring', specification: '한화 L4301', unit_price: 18000, quantity: 25, unit: '평', created_at: '2024-03-10T09:00:00Z' },
-  { id: 'mat-005', project_id: 'proj-001', name: '방수액', category: 'plumbing', specification: '고탄성 수성', unit_price: 45000, quantity: 3, unit: '통', created_at: '2024-03-10T09:00:00Z' },
-]
+  {
+    id: 'mat-001',
+    project_id: 'proj-001',
+    name: '포세린 타일 600x600',
+    category: 'tiling',
+    specification: '이탈리아산 무광',
+    unit_price: 35000,
+    quantity: 42,
+    unit: '장',
+    created_at: '2024-03-10T09:00:00Z',
+  },
+  {
+    id: 'mat-002',
+    project_id: 'proj-001',
+    name: '실크 벽지',
+    category: 'painting',
+    specification: 'LG하우시스 ZN062',
+    unit_price: 25000,
+    quantity: 30,
+    unit: '롤',
+    created_at: '2024-03-10T09:00:00Z',
+  },
+  {
+    id: 'mat-003',
+    project_id: 'proj-001',
+    name: '전선 HIV 2.5sq',
+    category: 'electrical',
+    specification: '대한전선',
+    unit_price: 800,
+    quantity: 200,
+    unit: 'm',
+    created_at: '2024-03-10T09:00:00Z',
+  },
+  {
+    id: 'mat-004',
+    project_id: 'proj-001',
+    name: '강화마루',
+    category: 'flooring',
+    specification: '한화 L4301',
+    unit_price: 18000,
+    quantity: 25,
+    unit: '평',
+    created_at: '2024-03-10T09:00:00Z',
+  },
+  {
+    id: 'mat-005',
+    project_id: 'proj-001',
+    name: '방수액',
+    category: 'plumbing',
+    specification: '고탄성 수성',
+    unit_price: 45000,
+    quantity: 3,
+    unit: '통',
+    created_at: '2024-03-10T09:00:00Z',
+  },
+];
 
 export const MOCK_ESTIMATE = {
   id: 'est-001',
@@ -218,20 +268,33 @@ export const MOCK_ESTIMATE = {
   status: 'completed' as const,
   overall_score: 72,
   risks: [
-    { level: 'high' as const, title: '철거 폐기물 처리비 별도', description: '보통 30~80만원 추가 발생. 견적에 포함 여부 확인 필요' },
-    { level: 'high' as const, title: '전기 추가 배선 현장 결정', description: '콘센트 추가 시 개당 3~5만원. 범위 미확정' },
-    { level: 'medium' as const, title: '도배 면적 "실측 후 확정"', description: '면적 차이에 따라 ±10% 변동 가능' },
+    {
+      level: 'high' as const,
+      title: '철거 폐기물 처리비 별도',
+      description: '보통 30~80만원 추가 발생. 견적에 포함 여부 확인 필요',
+    },
+    {
+      level: 'high' as const,
+      title: '전기 추가 배선 현장 결정',
+      description: '콘센트 추가 시 개당 3~5만원. 범위 미확정',
+    },
+    {
+      level: 'medium' as const,
+      title: '도배 면적 "실측 후 확정"',
+      description: '면적 차이에 따라 ±10% 변동 가능',
+    },
   ],
   missing_items: [
     { title: '입주청소 항목 없음', description: '보통 25평 기준 15~25만원. 포함인지 확인하세요' },
     { title: '보양 작업 항목 없음', description: '현관/엘리베이터 보양. 관리사무소 요구 시 추가' },
   ],
-}
+};
 
 export const MOCK_CHAT_MESSAGES: ChatMessage[] = [
   {
     role: 'assistant',
-    content: '안녕하세요! 공사 관련 뭐든 물어보세요.\n하자 진단, 비용 적정성, 업자에게 보낼 문구까지 도와드려요.',
+    content:
+      '안녕하세요! 공사 관련 뭐든 물어보세요.\n하자 진단, 비용 적정성, 업자에게 보낼 문구까지 도와드려요.',
   },
   {
     role: 'user',
@@ -239,21 +302,22 @@ export const MOCK_CHAT_MESSAGES: ChatMessage[] = [
   },
   {
     role: 'assistant',
-    content: '**타일 크랙 — 하자보수 가능합니다**\n\n**1. 하자 여부:** 시공 2개월 내 발생한 줄눈 크랙은 시공 하자에 해당합니다.\n\n**2. 법적 근거:** 건설산업기본법 시행령 별표4에 따라 타일 하자보수기간은 1년입니다.\n\n**3. 업자에게 보낼 카톡:**\n> "사장님, 욕실 타일 줄눈에 크랙이 발생했습니다. 시공 2개월 미만이라 하자보수 범위에 해당하는 것으로 보이는데, 확인 후 보수 일정 잡아주시면 감사하겠습니다."',
+    content:
+      '**타일 크랙 — 하자보수 가능합니다**\n\n**1. 하자 여부:** 시공 2개월 내 발생한 줄눈 크랙은 시공 하자에 해당합니다.\n\n**2. 법적 근거:** 건설산업기본법 시행령 별표4에 따라 타일 하자보수기간은 1년입니다.\n\n**3. 업자에게 보낼 카톡:**\n> "사장님, 욕실 타일 줄눈에 크랙이 발생했습니다. 시공 2개월 미만이라 하자보수 범위에 해당하는 것으로 보이는데, 확인 후 보수 일정 잡아주시면 감사하겠습니다."',
   },
-]
+];
 
 export const INITIAL_SUGGESTIONS: string[] = [
   '이 견적 적정한가요?',
   '공사 중 확인할 것',
   '추가금 요구 대응법',
-]
+];
 
 export const MOCK_FOLLOW_SUGGESTIONS: string[] = [
   '하자보수 요청서 작성해줘',
   '안 고쳐주면 어떡해?',
   '소비자원 신고 방법',
-]
+];
 
 export const MOCK_STORAGE: StorageUsage = {
   used_bytes: 1288490188,
@@ -261,11 +325,11 @@ export const MOCK_STORAGE: StorageUsage = {
   file_count: 78,
   file_limit: 500,
   plan: 'basic',
-}
+};
 
 export const MOCK_UPLOAD_STEPS: UploadStep[] = [
   { label: '카카오톡 대화 파싱', status: 'completed', detail: '458개 메시지 추출됨' },
   { label: '사진 날짜 추출', status: 'completed', detail: '127장 EXIF 정보 추출' },
   { label: 'AI 공정 분류', status: 'processing', detail: '298/458 메시지 분류 완료', progress: 65 },
   { label: '타임라인 구성', status: 'pending' },
-]
+];

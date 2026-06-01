@@ -1,29 +1,29 @@
-'use client'
-import { formatFileSize } from '@/lib/utils'
+'use client';
+import { formatFileSize } from '@/lib/utils';
 
 interface QuotaBarProps {
-  used: number
-  limit: number
-  plan: string
-  fileCount?: number
-  fileLimit?: number
+  used: number;
+  limit: number;
+  plan: string;
+  fileCount?: number;
+  fileLimit?: number;
 }
 
 export function QuotaBar({ used, limit, plan, fileCount, fileLimit }: QuotaBarProps) {
-  const percentage = Math.min((used / limit) * 100, 100)
-  const level = percentage >= 90 ? 'danger' : percentage >= 70 ? 'warn' : 'safe'
+  const percentage = Math.min((used / limit) * 100, 100);
+  const level = percentage >= 90 ? 'danger' : percentage >= 70 ? 'warn' : 'safe';
 
   const barColors = {
     safe: 'bg-blue-500',
     warn: 'bg-amber-500',
     danger: 'bg-red-500',
-  }
+  };
 
   const textColors = {
     safe: 'text-blue-700',
     warn: 'text-amber-700',
     danger: 'text-red-700',
-  }
+  };
 
   return (
     <div className="px-4 py-3">
@@ -53,5 +53,5 @@ export function QuotaBar({ used, limit, plan, fileCount, fileLimit }: QuotaBarPr
         </p>
       )}
     </div>
-  )
+  );
 }

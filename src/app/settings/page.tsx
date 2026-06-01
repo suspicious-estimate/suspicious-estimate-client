@@ -1,21 +1,21 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { Header } from '@/components/layout/Header'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { useQuota } from '@/hooks/useQuota'
-import { useAuth } from '@/hooks/useAuth'
-import { formatFileSize } from '@/lib/utils'
+'use client';
+import { useRouter } from 'next/navigation';
+import { MobileLayout } from '@/components/layout/MobileLayout';
+import { Header } from '@/components/layout/Header';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { useQuota } from '@/hooks/useQuota';
+import { useAuth } from '@/hooks/useAuth';
+import { formatFileSize } from '@/lib/utils';
 
 export default function SettingsPage() {
-  const router = useRouter()
-  const { used, limit, plan, fileCount, fileLimit } = useQuota()
-  const { user, logout } = useAuth()
+  const router = useRouter();
+  const { used, limit, plan, fileCount, fileLimit } = useQuota();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    logout()
-    router.push('/login')
-  }
+    logout();
+    router.push('/login');
+  };
 
   return (
     <MobileLayout>
@@ -54,7 +54,9 @@ export default function SettingsPage() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">파일 수</span>
-            <span className="text-sm text-gray-900">{fileCount} / {fileLimit}개</span>
+            <span className="text-sm text-gray-900">
+              {fileCount} / {fileLimit}개
+            </span>
           </div>
         </div>
 
@@ -82,5 +84,5 @@ export default function SettingsPage() {
 
       <BottomNav />
     </MobileLayout>
-  )
+  );
 }

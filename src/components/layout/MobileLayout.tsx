@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
 interface MobileLayoutProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export function MobileLayout({ children, className }: MobileLayoutProps) {
@@ -10,5 +10,5 @@ export function MobileLayout({ children, className }: MobileLayoutProps) {
     <div className={`mx-auto max-w-[430px] min-h-screen bg-white relative ${className || ''}`}>
       {children}
     </div>
-  )
+  );
 }

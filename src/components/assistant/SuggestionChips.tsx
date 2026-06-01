@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
 interface SuggestionChipsProps {
-  suggestions: string[]
-  onSelect: (suggestion: string) => void
+  suggestions: string[];
+  onSelect: (suggestion: string) => void;
 }
 
 export function SuggestionChips({ suggestions, onSelect }: SuggestionChipsProps) {
-  if (suggestions.length === 0) return null
+  if (suggestions.length === 0) return null;
 
   return (
     <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
@@ -25,5 +25,5 @@ export function SuggestionChips({ suggestions, onSelect }: SuggestionChipsProps)
         </button>
       ))}
     </div>
-  )
+  );
 }

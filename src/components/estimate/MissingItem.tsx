@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
 interface MissingItemProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
 export function MissingItem({ title, description }: MissingItemProps) {
@@ -21,5 +21,5 @@ export function MissingItem({ title, description }: MissingItemProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

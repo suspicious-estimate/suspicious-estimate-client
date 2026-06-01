@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 interface SearchBarProps {
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
 }
 
 export function SearchBar({ value, onChange, placeholder = '검색...' }: SearchBarProps) {
@@ -20,7 +20,7 @@ export function SearchBar({ value, onChange, placeholder = '검색...' }: Search
         <input
           type="text"
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className="w-full pl-9 pr-8 py-2.5 bg-gray-100 rounded-full text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
         />
@@ -34,5 +34,5 @@ export function SearchBar({ value, onChange, placeholder = '검색...' }: Search
         )}
       </div>
     </div>
-  )
+  );
 }

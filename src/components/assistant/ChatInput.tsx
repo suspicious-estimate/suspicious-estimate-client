@@ -1,21 +1,21 @@
-'use client'
-import { useState } from 'react'
+'use client';
+import { useState } from 'react';
 
 interface ChatInputProps {
-  onSend: (msg: string) => void
-  onPhotoAttach?: () => void
-  disabled?: boolean
+  onSend: (msg: string) => void;
+  onPhotoAttach?: () => void;
+  disabled?: boolean;
 }
 
 export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
-  const [text, setText] = useState('')
+  const [text, setText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!text.trim() || disabled) return
-    onSend(text.trim())
-    setText('')
-  }
+    e.preventDefault();
+    if (!text.trim() || disabled) return;
+    onSend(text.trim());
+    setText('');
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
       <input
         type="text"
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
         placeholder="질문을 입력하세요"
         disabled={disabled}
         className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white disabled:opacity-50 transition-colors"
@@ -51,5 +51,5 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
         <span className="text-sm font-bold">↑</span>
       </button>
     </form>
-  )
+  );
 }
