@@ -29,7 +29,9 @@ export function Header({ title, backHref, rightAction, rightText }: HeaderProps)
 
         <div className="flex items-center gap-2 flex-shrink-0">
           {rightText && (
-            <span className="text-sm text-muted-foreground truncate max-w-[120px]">{rightText}</span>
+            <span className="text-sm text-muted-foreground truncate max-w-[120px]">
+              {rightText}
+            </span>
           )}
           {rightAction && (
             <Button variant="ghost" size="sm" onClick={rightAction.onClick}>

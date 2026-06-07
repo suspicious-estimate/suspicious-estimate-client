@@ -15,7 +15,10 @@ export function CategoryBadge({ category, confidence, size = 'md' }: CategoryBad
   return (
     // 카테고리별 색상은 데이터에서 오므로 인라인 style로 토큰 대신 직접 지정
     <Badge
-      className={cn('gap-1 border-transparent', size === 'sm' ? 'h-5 text-xs' : 'h-6 px-2.5 text-sm')}
+      className={cn(
+        'gap-1 border-transparent',
+        size === 'sm' ? 'h-5 text-xs' : 'h-6 px-2.5 text-sm',
+      )}
       style={{ backgroundColor: info.bgColor, color: info.color }}
     >
       {info.name}

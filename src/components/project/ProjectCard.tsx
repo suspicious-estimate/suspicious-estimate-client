@@ -25,9 +25,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
     >
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
-        {project.contractor_name && (
-          <CardDescription>{project.contractor_name}</CardDescription>
-        )}
+        {project.contractor_name && <CardDescription>{project.contractor_name}</CardDescription>}
       </CardHeader>
       {project.contract_amount && (
         <CardContent>
