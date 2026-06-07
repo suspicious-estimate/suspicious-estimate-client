@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface OnboardingGuideProps {
   onSkip: () => void;
@@ -26,54 +28,44 @@ const STEPS = [
 
 export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const isLast = currentStep === STEPS.length - 1;
 
   return (
     <div className="flex flex-col items-center px-6 py-8">
-      {/* TODO: 목업 화면 2번(온보딩) 참고하여 구현
-          - 3단계 슬라이드 (좌우 스와이프 또는 도트 네비게이션)
-          - 각 단계: 큰 아이콘 + 제목 + 설명
-          - 하단: 도트 인디케이터 + "시작하기" 버튼 + "건너뛰기" 링크
-      */}
       <div className="flex-1 flex flex-col items-center justify-center text-center mb-8">
         <span className="text-6xl mb-6">{STEPS[currentStep].icon}</span>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">{STEPS[currentStep].title}</h2>
-        <p className="text-sm text-gray-500 max-w-[280px]">{STEPS[currentStep].description}</p>
+        <h2 className="text-xl font-bold text-foreground mb-2">{STEPS[currentStep].title}</h2>
+        <p className="text-sm text-muted-foreground max-w-[280px]">
+          {STEPS[currentStep].description}
+        </p>
       </div>
 
       <div className="flex gap-1.5 mb-8">
         {STEPS.map((_, idx) => (
           <button
             key={idx}
+            type="button"
+            aria-label={`${idx + 1}단계로 이동`}
             onClick={() => setCurrentStep(idx)}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              idx === currentStep ? 'bg-blue-600' : 'bg-gray-300'
-            }`}
+            className={cn(
+              'h-2 rounded-full transition-all',
+              idx === currentStep ? 'w-5 bg-foreground' : 'w-2 bg-border',
+            )}
           />
         ))}
       </div>
 
       <div className="w-full space-y-3">
-        {currentStep < STEPS.length - 1 ? (
-          <button
-            onClick={() => setCurrentStep((prev) => prev + 1)}
-            className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            다음
-          </button>
-        ) : (
-          <button
-            onClick={onStart}
-            className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            시작하기
-          </button>
-        )}
-        <button
-          onClick={onSkip}
-          className="w-full py-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+        <Button
+          size="lg"
+          className="w-full"
+          onClick={() => (isLast ? onStart() : setCurrentStep((prev) => prev + 1))}
         >
+          {isLast ? '시작하기' : '다음'}
+        </Button>
+        <Button variant="ghost" className="w-full text-muted-foreground" onClick={onSkip}>
           건너뛰기
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   title: string;
@@ -10,31 +12,29 @@ interface HeaderProps {
 
 export function Header({ title, backHref, rightAction, rightText }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="flex items-center justify-between h-14 px-4">
         <div className="flex items-center gap-2 min-w-0">
           {backHref && (
             <Link
               href={backHref}
-              className="flex items-center justify-center w-8 h-8 -ml-2 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="뒤로 가기"
+              className={cn(buttonVariants({ variant: 'ghost', size: 'icon-sm' }), '-ml-1')}
             >
               <span className="text-lg">←</span>
             </Link>
           )}
-          <h1 className="text-lg font-semibold text-gray-900 truncate">{title}</h1>
+          <h1 className="text-lg font-semibold text-foreground truncate">{title}</h1>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
           {rightText && (
-            <span className="text-sm text-gray-500 truncate max-w-[120px]">{rightText}</span>
+            <span className="text-sm text-muted-foreground truncate max-w-[120px]">{rightText}</span>
           )}
           {rightAction && (
-            <button
-              onClick={rightAction.onClick}
-              className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors px-2 py-1 rounded"
-            >
+            <Button variant="ghost" size="sm" onClick={rightAction.onClick}>
               {rightAction.label}
-            </button>
+            </Button>
           )}
         </div>
       </div>

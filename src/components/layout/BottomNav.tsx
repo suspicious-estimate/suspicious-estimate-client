@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface NavItem {
   label: string;
@@ -49,7 +50,7 @@ export function BottomNav({ projectId }: BottomNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-gray-200 z-50">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] border-t border-border bg-background z-50">
       <div className="flex justify-around items-center h-16 px-2 pb-[env(safe-area-inset-bottom)]">
         {NAV_ITEMS.map((item) => {
           const href = item.href(projectId);
@@ -59,9 +60,12 @@ export function BottomNav({ projectId }: BottomNavProps) {
             <Link
               key={item.label}
               href={href}
-              className={`flex flex-col items-center justify-center gap-0.5 min-w-[48px] py-1 rounded-lg transition-colors ${
-                isActive ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'
-              }`}
+              className={cn(
+                'flex flex-col items-center justify-center gap-0.5 min-w-[48px] px-2 py-1 rounded-xl transition-colors',
+                isActive
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted',
+              )}
             >
               <span className="text-xl leading-none">{item.icon}</span>
               <span className="text-[10px] font-medium">{item.label}</span>
