@@ -1,5 +1,7 @@
 'use client';
 import { useCallback, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface FileUploaderProps {
   onFilesSelected: (files: File[]) => void;
@@ -32,29 +34,29 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
     e.target.value = '';
   };
 
+  const typeButtons = [
+    { icon: '💬', label: '카톡 대화' },
+    { icon: '📷', label: '사진' },
+    { icon: '📄', label: '서류' },
+  ];
+
   return (
     <div className="p-4 space-y-4">
-      {/* TODO: 목업 화면 5번(업로드) 참고하여 구현
-          - 드래그앤드롭 점선 박스 (드래그 시 파랑 테두리)
-          - 중앙 아이콘 + "파일을 여기에 끌어놓거나" 텍스트
-          - 파일 선택 버튼
-          - 지원 파일 형식: 카톡 txt, 사진(jpg/png/heic), PDF
-          - 하단: 파일타입별 버튼 3개 (카톡대화/사진/서류)
-          - "여러 파일을 동시에 업로드할 수 있어요" 안내
-      */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={() => setIsDragging(false)}
-        className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
-          isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-        } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+        className={cn(
+          'border-2 border-dashed rounded-xl p-8 text-center transition-colors',
+          isDragging ? 'border-ring bg-accent/30' : 'border-input',
+          disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+        )}
         onClick={() => !disabled && fileInputRef.current?.click()}
       >
         <div className="text-4xl mb-3">📁</div>
-        <p className="text-sm text-gray-600 mb-2">파일을 여기에 끌어놓거나</p>
-        <p className="text-sm font-medium text-blue-600">클릭하여 선택</p>
-        <p className="text-xs text-gray-400 mt-3">카톡 txt · 사진(jpg/png/heic) · PDF</p>
+        <p className="text-sm text-muted-foreground mb-2">파일을 여기에 끌어놓거나</p>
+        <p className="text-sm font-medium text-foreground">클릭하여 선택</p>
+        <p className="text-xs text-muted-foreground mt-3">카톡 txt · 사진(jpg/png/heic) · PDF</p>
       </div>
 
       <input
@@ -67,33 +69,23 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
       />
 
       <div className="grid grid-cols-3 gap-2">
-        <button
-          disabled={disabled}
-          onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
-        >
-          <span className="text-xl">💬</span>
-          <span className="text-xs text-gray-600">카톡 대화</span>
-        </button>
-        <button
-          disabled={disabled}
-          onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
-        >
-          <span className="text-xl">📷</span>
-          <span className="text-xs text-gray-600">사진</span>
-        </button>
-        <button
-          disabled={disabled}
-          onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
-        >
-          <span className="text-xl">📄</span>
-          <span className="text-xs text-gray-600">서류</span>
-        </button>
+        {typeButtons.map((btn) => (
+          <Button
+            key={btn.label}
+            variant="outline"
+            disabled={disabled}
+            onClick={() => fileInputRef.current?.click()}
+            className="h-auto flex-col gap-1 py-3"
+          >
+            <span className="text-xl">{btn.icon}</span>
+            <span className="text-xs text-muted-foreground">{btn.label}</span>
+          </Button>
+        ))}
       </div>
 
-      <p className="text-xs text-center text-gray-400">여러 파일을 동시에 업로드할 수 있어요</p>
+      <p className="text-xs text-center text-muted-foreground">
+        여러 파일을 동시에 업로드할 수 있어요
+      </p>
     </div>
   );
 }

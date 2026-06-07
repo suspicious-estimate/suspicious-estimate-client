@@ -1,5 +1,6 @@
 'use client';
-import { formatFileSize } from '@/lib/utils';
+import { formatFileSize, cn } from '@/lib/utils';
+import { Progress } from '@/components/ui/progress';
 
 interface QuotaBarProps {
   used: number;
@@ -13,42 +14,37 @@ export function QuotaBar({ used, limit, plan, fileCount, fileLimit }: QuotaBarPr
   const percentage = Math.min((used / limit) * 100, 100);
   const level = percentage >= 90 ? 'danger' : percentage >= 70 ? 'warn' : 'safe';
 
-  const barColors = {
-    safe: 'bg-blue-500',
-    warn: 'bg-amber-500',
-    danger: 'bg-red-500',
-  };
+  const indicatorClass = {
+    safe: '[&_[data-slot=progress-indicator]]:bg-primary',
+    warn: '[&_[data-slot=progress-indicator]]:bg-warning',
+    danger: '[&_[data-slot=progress-indicator]]:bg-danger',
+  }[level];
 
-  const textColors = {
-    safe: 'text-blue-700',
-    warn: 'text-amber-700',
-    danger: 'text-red-700',
-  };
+  const textColor = {
+    safe: 'text-foreground',
+    warn: 'text-warning',
+    danger: 'text-danger',
+  }[level];
 
   return (
     <div className="px-4 py-3">
-      {/* TODO: 목업 화면 5번(업로드) QuotaBar 참고하여 구현
-          - 요금제 뱃지 (free/basic/premium)
-          - 프로그레스바 (색상: safe=파랑, warn=주황, danger=빨강)
-          - 수치: "1.2GB / 5GB 사용 중"
-          - 파일 수: "78 / 500개"
-      */}
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-medium text-gray-500 uppercase">{plan} 플랜</span>
-        <span className={`text-xs font-medium ${textColors[level]}`}>
+        <span className="text-xs font-medium text-muted-foreground uppercase">{plan} 플랜</span>
+        <span className={cn('text-xs font-medium', textColor)}>
           {formatFileSize(used)} / {formatFileSize(limit)}
         </span>
       </div>
 
-      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-        <div
-          className={`h-full rounded-full transition-all duration-500 ${barColors[level]}`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
+      <Progress
+        value={percentage}
+        className={cn(
+          '[&_[data-slot=progress-track]]:h-2 [&_[data-slot=progress-track]]:bg-foreground/10',
+          indicatorClass,
+        )}
+      />
 
       {fileCount !== undefined && fileLimit !== undefined && (
-        <p className="text-xs text-gray-400 mt-1 text-right">
+        <p className="text-xs text-muted-foreground mt-1 text-right">
           파일 {fileCount} / {fileLimit}개
         </p>
       )}

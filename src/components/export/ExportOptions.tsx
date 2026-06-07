@@ -1,4 +1,5 @@
 'use client';
+import { Card } from '@/components/ui/card';
 
 interface ExportOptionsProps {
   onPdf: () => void;
@@ -30,24 +31,27 @@ export function ExportOptions({ onPdf, onZip, onArchive }: ExportOptionsProps) {
 
   return (
     <div className="p-4 space-y-3">
-      {/* TODO: 목업 화면 11번(내보내기) 참고하여 구현
-          - 3개 옵션 카드
-          - 각 카드: 아이콘 + 제목 + 설명 + 우측 화살표
-          - 카드 클릭 시 해당 액션
-      */}
       {options.map((opt) => (
-        <button
+        <Card
           key={opt.title}
+          role="button"
+          tabIndex={0}
           onClick={opt.onClick}
-          className="w-full flex items-center gap-4 p-4 rounded-xl border border-gray-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              opt.onClick();
+            }
+          }}
+          className="flex-row items-center gap-4 px-4 cursor-pointer transition-colors hover:bg-accent/20 hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <span className="text-2xl flex-shrink-0">{opt.icon}</span>
           <div className="flex-1">
-            <p className="text-sm font-medium text-gray-900">{opt.title}</p>
-            <p className="text-xs text-gray-500 mt-0.5">{opt.description}</p>
+            <p className="text-sm font-medium text-foreground">{opt.title}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{opt.description}</p>
           </div>
-          <span className="text-gray-400">→</span>
-        </button>
+          <span className="text-muted-foreground">→</span>
+        </Card>
       ))}
     </div>
   );

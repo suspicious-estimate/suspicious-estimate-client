@@ -1,5 +1,8 @@
 'use client';
 import { formatFileSize } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 
 interface StorageUsageProps {
   used: number;
@@ -12,30 +15,21 @@ export function StorageUsage({ used, limit, plan }: StorageUsageProps) {
 
   return (
     <div className="p-4">
-      {/* TODO: 목업 화면 11번(내보내기) 상단 용량 섹션 참고하여 구현
-          - 원형 또는 바 그래프
-          - 사용량 / 전체용량 텍스트
-          - 요금제 뱃지
-      */}
-      <div className="bg-gray-50 rounded-xl p-4">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-gray-700">저장 공간</span>
-          <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full font-medium">
-            {plan}
-          </span>
+      <Card className="gap-3 px-4">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-foreground">저장 공간</span>
+          <Badge variant="secondary">{plan}</Badge>
         </div>
 
-        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-blue-500 rounded-full transition-all duration-500"
-            style={{ width: `${percentage}%` }}
-          />
-        </div>
+        <Progress
+          value={percentage}
+          className="[&_[data-slot=progress-track]]:h-3 [&_[data-slot=progress-track]]:bg-foreground/10"
+        />
 
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-sm text-muted-foreground">
           {formatFileSize(used)} / {formatFileSize(limit)} 사용 중
         </p>
-      </div>
+      </Card>
     </div>
   );
 }

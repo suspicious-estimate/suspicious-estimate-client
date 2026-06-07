@@ -1,4 +1,6 @@
 'use client';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface RiskItemProps {
   level: 'high' | 'medium' | 'low';
@@ -8,27 +10,30 @@ interface RiskItemProps {
 
 export function RiskItem({ level, title, description }: RiskItemProps) {
   const levelStyles = {
-    high: { icon: '🔴', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-800' },
-    medium: { icon: '🟡', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-800' },
-    low: { icon: '📋', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-800' },
+    high: { icon: '🔴', card: 'border-danger/30 bg-danger/10 ring-danger/20', text: 'text-danger' },
+    medium: {
+      icon: '🟡',
+      card: 'border-warning/30 bg-warning/10 ring-warning/20',
+      text: 'text-warning',
+    },
+    low: {
+      icon: '📋',
+      card: 'border-accent bg-accent/30 ring-accent',
+      text: 'text-accent-foreground',
+    },
   };
 
   const style = levelStyles[level];
 
   return (
-    <div className={`p-3 rounded-lg border ${style.bg} ${style.border}`}>
-      {/* TODO: 목업 화면 9번(견적분석) 리스크 항목 참고하여 구현
-          - 좌측 아이콘 (레벨별)
-          - 제목 (bold)
-          - 설명 (회색)
-      */}
-      <div className="flex items-start gap-2.5">
+    <Card size="sm" className={cn('border', style.card)}>
+      <div className="flex items-start gap-2.5 px-3">
         <span className="text-base flex-shrink-0 mt-0.5">{style.icon}</span>
         <div>
-          <p className={`text-sm font-medium ${style.text}`}>{title}</p>
-          <p className="text-xs text-gray-600 mt-0.5">{description}</p>
+          <p className={cn('text-sm font-medium', style.text)}>{title}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
