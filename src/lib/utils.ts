@@ -1,7 +1,10 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import { ProcessCategory, ProcessCategoryInfo, PROCESS_CATEGORIES } from '@/types/timeline';
 
-export function cn(...classes: (string | undefined | false | null)[]): string {
-  return classes.filter(Boolean).join(' ');
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
 }
 
 export function formatCurrency(won: number): string {
