@@ -1,7 +1,6 @@
 'use client';
 import { use } from 'react';
 import Link from 'next/link';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { EstimateScore } from '@/components/estimate/EstimateScore';
@@ -19,7 +18,7 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
 
   if (!hasEstimate) {
     return (
-      <MobileLayout>
+      <>
         <Header title="견적 분석" backHref={`/projects/${id}`} />
         <EmptyState
           icon="📊"
@@ -28,12 +27,12 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
           action={{ label: '업로드하기', onClick: () => {} }}
         />
         <BottomNav projectId={id} />
-      </MobileLayout>
+      </>
     );
   }
 
   return (
-    <MobileLayout>
+    <>
       <Header title="견적 분석" backHref={`/projects/${id}`} />
 
       <div className="px-4 pt-4 pb-24 space-y-6">
@@ -82,6 +81,6 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
       </div>
 
       <BottomNav projectId={id} />
-    </MobileLayout>
+    </>
   );
 }

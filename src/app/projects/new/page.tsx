@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { ProjectForm } from '@/components/project/ProjectForm';
 import { useCreateProject } from '@/hooks/useProject';
@@ -15,9 +14,9 @@ export default function NewProjectPage() {
   };
 
   return (
-    <MobileLayout>
+    <>
       <Header title="새 프로젝트" backHref="/projects" />
       <ProjectForm onSubmit={handleSubmit} isLoading={isLoading} />
-    </MobileLayout>
+    </>
   );
 }
