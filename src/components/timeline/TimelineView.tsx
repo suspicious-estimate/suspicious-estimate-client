@@ -2,6 +2,7 @@
 import { TimelineItem as TimelineItemType } from '@/types/timeline';
 import { TimelineItem } from './TimelineItem';
 import { groupTimelineByDate } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface TimelineViewProps {
   items: TimelineItemType[];
@@ -16,7 +17,7 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-muted border-t-foreground rounded-full animate-spin" />
       </div>
     );
   }
@@ -24,22 +25,17 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
   if (items.length === 0) {
     return (
       <div className="text-center py-12 px-4">
-        <p className="text-gray-400 text-sm">타임라인 항목이 없습니다</p>
+        <p className="text-muted-foreground text-sm">타임라인 항목이 없습니다</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-6 pb-4">
-      {/* TODO: 목업 화면 6번(타임라인) 참고하여 구현
-          - 날짜별 그룹 헤더 (3월 15일 금요일)
-          - 각 아이템 사이 연결선 (왼쪽 세로선)
-          - 무한스크롤 (hasMore일 때 하단 로딩)
-      */}
       {grouped.map(({ date, items: dayItems }) => (
         <div key={date}>
-          <div className="sticky top-14 z-10 bg-gray-50 px-4 py-2">
-            <span className="text-sm font-medium text-gray-600">{date}</span>
+          <div className="sticky top-14 z-10 bg-secondary text-secondary-foreground px-4 py-2">
+            <span className="text-sm font-medium">{date}</span>
           </div>
           <div className="space-y-1 px-4">
             {dayItems.map((item) => (
@@ -50,12 +46,9 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
       ))}
 
       {hasMore && (
-        <button
-          onClick={onLoadMore}
-          className="w-full py-3 text-sm text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors"
-        >
+        <Button variant="ghost" className="w-full" onClick={onLoadMore}>
           더 보기
-        </button>
+        </Button>
       )}
     </div>
   );
