@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface ChatInputProps {
   onSend: (msg: string) => void;
@@ -19,37 +21,37 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      {/* TODO: 목업 화면 8번(AI상담) 입력창 참고하여 구현
-          - 좌측 사진 첨부 버튼 (📷)
-          - 중앙 input (라운드, placeholder "질문을 입력하세요")
-          - 우측 전송 버튼 (파란 원 안 ↑ 아이콘)
-      */}
       {onPhotoAttach && (
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
+          className="shrink-0 rounded-full"
           onClick={onPhotoAttach}
-          className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+          aria-label="사진 첨부"
         >
           <span className="text-lg">📷</span>
-        </button>
+        </Button>
       )}
 
-      <input
+      <Input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="질문을 입력하세요"
         disabled={disabled}
-        className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white disabled:opacity-50 transition-colors"
+        className="h-9 flex-1 rounded-full border-transparent bg-muted px-4"
       />
 
-      <button
+      <Button
         type="submit"
+        size="icon"
+        className="shrink-0 rounded-full"
         disabled={!text.trim() || disabled}
-        className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+        aria-label="전송"
       >
         <span className="text-sm font-bold">↑</span>
-      </button>
+      </Button>
     </form>
   );
 }
