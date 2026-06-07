@@ -1,6 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { ProjectCreate } from '@/types/project';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface ProjectFormProps {
   onSubmit: (data: ProjectCreate) => void;
@@ -31,90 +34,77 @@ export function ProjectForm({ onSubmit, isLoading }: ProjectFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4">
-      {/* TODO: 목업 화면 4번(새 프로젝트) 참고하여 구현
-          - 프로젝트 이름* (필수)
-          - 주소 (선택)
-          - 시공업체명 (선택)
-          - 계약금액 (만원 단위 입력)
-          - 공사 시작일 (date picker)
-          - 공사 종료일 (date picker)
-          - 생성 버튼 (파랑, 하단 고정)
-      */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          프로젝트 이름 <span className="text-red-500">*</span>
-        </label>
-        <input
+      <div className="space-y-1.5">
+        <Label htmlFor="project-title">
+          프로젝트 이름 <span className="text-destructive">*</span>
+        </Label>
+        <Input
+          id="project-title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="예: 우리집 25평 인테리어"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">주소</label>
-        <input
+      <div className="space-y-1.5">
+        <Label htmlFor="project-address">주소</Label>
+        <Input
+          id="project-address"
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="공사 현장 주소"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">시공업체</label>
-        <input
+      <div className="space-y-1.5">
+        <Label htmlFor="project-contractor">시공업체</Label>
+        <Input
+          id="project-contractor"
           type="text"
           value={contractorName}
           onChange={(e) => setContractorName(e.target.value)}
           placeholder="업체명"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">계약금액 (만원)</label>
-        <input
+      <div className="space-y-1.5">
+        <Label htmlFor="project-amount">계약금액 (만원)</Label>
+        <Input
+          id="project-amount"
           type="number"
           value={contractAmount}
           onChange={(e) => setContractAmount(e.target.value)}
           placeholder="예: 2800"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">시작일</label>
-          <input
+        <div className="space-y-1.5">
+          <Label htmlFor="project-start">시작일</Label>
+          <Input
+            id="project-start"
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">종료일</label>
-          <input
+        <div className="space-y-1.5">
+          <Label htmlFor="project-end">종료일</Label>
+          <Input
+            id="project-end"
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={!title.trim() || isLoading}
-        className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-      >
+      <Button type="submit" size="lg" className="w-full" disabled={!title.trim() || isLoading}>
         {isLoading ? '생성 중...' : '프로젝트 생성'}
-      </button>
+      </Button>
     </form>
   );
 }
