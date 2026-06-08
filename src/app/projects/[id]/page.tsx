@@ -1,7 +1,6 @@
 'use client';
 import { use } from 'react';
 import Link from 'next/link';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { useProject } from '@/hooks/useProject';
 import { formatCurrency } from '@/lib/utils';
@@ -12,11 +11,11 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
 
   if (isLoading || !project) {
     return (
-      <MobileLayout>
+      <>
         <div className="flex items-center justify-center min-h-screen">
           <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
-      </MobileLayout>
+      </>
     );
   }
 
@@ -28,7 +27,7 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
   ];
 
   return (
-    <MobileLayout>
+    <>
       <div className="px-4 pt-6 pb-24">
         {/* TODO: 목업 화면 7번(대시보드) 참고하여 구현
             - 프로젝트 요약 카드 (제목, 업체, 금액, 기간, 상태뱃지)
@@ -83,6 +82,6 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
         </Link>
       </div>
       <BottomNav projectId={id} />
-    </MobileLayout>
+    </>
   );
 }

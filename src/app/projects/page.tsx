@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { ProjectCard } from '@/components/project/ProjectCard';
 import { OnboardingGuide } from '@/components/common/OnboardingGuide';
@@ -12,17 +11,17 @@ export default function ProjectsPage() {
 
   if (isLoading) {
     return (
-      <MobileLayout>
+      <>
         <div className="flex items-center justify-center min-h-screen">
           <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
-      </MobileLayout>
+      </>
     );
   }
 
   if (projects.length === 0) {
     return (
-      <MobileLayout>
+      <>
         <div className="pt-8">
           <OnboardingGuide
             onSkip={() => router.push('/projects/new')}
@@ -30,12 +29,12 @@ export default function ProjectsPage() {
           />
         </div>
         <BottomNav />
-      </MobileLayout>
+      </>
     );
   }
 
   return (
-    <MobileLayout>
+    <>
       <div className="px-4 pt-6 pb-24">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-bold text-gray-900">내 프로젝트</h1>
@@ -58,6 +57,6 @@ export default function ProjectsPage() {
         </div>
       </div>
       <BottomNav />
-    </MobileLayout>
+    </>
   );
 }

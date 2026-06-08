@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { useQuota } from '@/hooks/useQuota';
@@ -18,7 +17,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <MobileLayout>
+    <>
       <Header title="설정" />
 
       <div className="px-4 pt-4 pb-24 space-y-4">
@@ -83,6 +82,6 @@ export default function SettingsPage() {
       </div>
 
       <BottomNav />
-    </MobileLayout>
+    </>
   );
 }
