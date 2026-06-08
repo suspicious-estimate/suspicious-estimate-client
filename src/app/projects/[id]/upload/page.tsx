@@ -1,6 +1,5 @@
 'use client';
 import { use } from 'react';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { QuotaBar } from '@/components/upload/QuotaBar';
@@ -17,7 +16,7 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
   const isProcessing = status === 'uploading' || status === 'processing';
 
   return (
-    <MobileLayout>
+    <>
       <Header title="자료 올리기" backHref={`/projects/${id}`} />
 
       <QuotaBar used={used} limit={limit} plan={plan} fileCount={fileCount} fileLimit={fileLimit} />
@@ -52,6 +51,6 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
       )}
 
       <BottomNav projectId={id} />
-    </MobileLayout>
+    </>
   );
 }

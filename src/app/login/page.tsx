@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -12,7 +11,7 @@ export default function LoginPage() {
   };
 
   return (
-    <MobileLayout>
+    <>
       <div className="flex flex-col items-center justify-center min-h-screen px-8">
         <div className="mb-12 text-center">
           <div className="text-6xl mb-4">🏠</div>
@@ -43,6 +42,6 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-    </MobileLayout>
+    </>
   );
 }

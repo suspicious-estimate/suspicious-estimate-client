@@ -1,6 +1,5 @@
 'use client';
 import { use } from 'react';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { StorageUsage } from '@/components/export/StorageUsage';
@@ -27,7 +26,7 @@ export default function ExportPage({ params }: { params: Promise<{ id: string }>
   };
 
   return (
-    <MobileLayout>
+    <>
       <Header title="내보내기" backHref={`/projects/${id}`} />
       <StorageUsage used={used} limit={limit} plan={plan} />
       <ExportOptions onPdf={handlePdf} onZip={handleZip} onArchive={handleArchive} />
@@ -43,6 +42,6 @@ export default function ExportPage({ params }: { params: Promise<{ id: string }>
       </div>
 
       <BottomNav projectId={id} />
-    </MobileLayout>
+    </>
   );
 }

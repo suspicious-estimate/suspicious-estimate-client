@@ -1,6 +1,5 @@
 'use client';
 import { use, useState } from 'react';
-import { MobileLayout } from '@/components/layout/MobileLayout';
 import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { SearchBar } from '@/components/timeline/SearchBar';
@@ -16,7 +15,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
   const { items, isLoading, hasMore, loadMore } = useTimeline(id, { search, category });
 
   return (
-    <MobileLayout>
+    <>
       <Header title="타임라인" backHref={`/projects/${id}`} />
       <SearchBar value={search} onChange={setSearch} placeholder="메시지, 파일명 검색..." />
       <CategoryFilter selected={category} onChange={setCategory} />
@@ -24,6 +23,6 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
         <TimelineView items={items} isLoading={isLoading} hasMore={hasMore} onLoadMore={loadMore} />
       </div>
       <BottomNav projectId={id} />
-    </MobileLayout>
+    </>
   );
 }
