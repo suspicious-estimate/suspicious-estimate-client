@@ -1,10 +1,10 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { useQuota } from '@/hooks/useQuota';
-import { useAuth } from '@/hooks/useAuth';
-import { formatFileSize } from '@/lib/utils';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { useQuota } from '@/entities/quota/model/use-quota';
+import { useAuth } from '@/entities/user/model/use-auth';
+import { formatFileSize } from '@/shared/lib/format';
 
 export default function SettingsPage() {
   const router = useRouter();

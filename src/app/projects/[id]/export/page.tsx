@@ -1,10 +1,10 @@
 'use client';
 import { use } from 'react';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { StorageUsage } from '@/components/export/StorageUsage';
-import { ExportOptions } from '@/components/export/ExportOptions';
-import { useQuota } from '@/hooks/useQuota';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { StorageUsage } from '@/entities/quota/ui/storage-usage';
+import { ExportOptions } from '@/features/export/ui/export-options';
+import { useQuota } from '@/entities/quota/model/use-quota';
 
 export default function ExportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

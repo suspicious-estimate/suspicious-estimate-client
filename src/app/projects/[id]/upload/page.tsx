@@ -1,12 +1,12 @@
 'use client';
 import { use } from 'react';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { QuotaBar } from '@/components/upload/QuotaBar';
-import { FileUploader } from '@/components/upload/FileUploader';
-import { UploadProgress } from '@/components/upload/UploadProgress';
-import { useUpload } from '@/hooks/useUpload';
-import { useQuota } from '@/hooks/useQuota';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { QuotaBar } from '@/entities/quota/ui/quota-bar';
+import { FileUploader } from '@/features/upload/ui/file-uploader';
+import { UploadProgress } from '@/features/upload/ui/upload-progress';
+import { useUpload } from '@/features/upload/model/use-upload';
+import { useQuota } from '@/entities/quota/model/use-quota';
 
 export default function UploadPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
