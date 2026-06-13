@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,7 +15,16 @@ export default function LoginPage() {
     <>
       <div className="flex flex-col items-center justify-center min-h-screen px-8">
         <div className="mb-12 text-center">
-          <div className="text-6xl mb-4">🏠</div>
+          <div className="mb-4 flex justify-center">
+            <Image
+              src="/android-chrome-512x512.png"
+              alt="수상한견적서 로고"
+              width={96}
+              height={96}
+              priority
+              className="rounded-3xl"
+            />
+          </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">수상한견적서</h1>
           <p className="text-sm text-gray-500 leading-relaxed">
             인테리어 공사의 모든 과정을

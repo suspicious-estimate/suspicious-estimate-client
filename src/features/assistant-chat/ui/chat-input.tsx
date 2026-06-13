@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { CameraIcon, ArrowUpIcon } from '@phosphor-icons/react/ssr';
 
 interface ChatInputProps {
   onSend: (msg: string) => void;
@@ -30,7 +31,7 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
           onClick={onPhotoAttach}
           className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
         >
-          <span className="text-lg">📷</span>
+          <CameraIcon size={22} weight="duotone" className="text-gray-500" />
         </button>
       )}
 
@@ -48,7 +49,7 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
         disabled={!text.trim() || disabled}
         className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
       >
-        <span className="text-sm font-bold">↑</span>
+        <ArrowUpIcon size={18} weight="bold" />
       </button>
     </form>
   );

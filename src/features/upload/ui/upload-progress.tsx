@@ -1,5 +1,7 @@
 'use client';
 import { UploadStep } from '@/features/upload/model/types';
+import type { Icon } from '@phosphor-icons/react/lib';
+import { HourglassIcon, CheckCircleIcon, XCircleIcon, RobotIcon } from '@phosphor-icons/react/ssr';
 
 interface UploadProgressProps {
   steps: UploadStep[];
@@ -8,11 +10,10 @@ interface UploadProgressProps {
 }
 
 export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProgressProps) {
-  const statusIcons: Record<string, string> = {
-    pending: '⏳',
-    processing: '⚙️',
-    completed: '✅',
-    failed: '❌',
+  const statusConfig: Record<string, { Icon: Icon; className: string }> = {
+    pending: { Icon: HourglassIcon, className: 'text-gray-400' },
+    completed: { Icon: CheckCircleIcon, className: 'text-green-600' },
+    failed: { Icon: XCircleIcon, className: 'text-red-600' },
   };
 
   return (
@@ -24,7 +25,7 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
           - 하단: "잠시만 기다려주세요" 안내
       */}
       <div className="text-center mb-6">
-        <div className="text-3xl mb-2">🤖</div>
+        <RobotIcon size={36} weight="duotone" className="mx-auto mb-2 text-blue-500" />
         <p className="font-medium text-gray-900">AI가 분석 중입니다</p>
         {estimatedTime && (
           <p className="text-sm text-gray-500 mt-1">예상 소요시간: {estimatedTime}</p>
@@ -43,11 +44,16 @@ export function UploadProgress({ steps, currentStep, estimatedTime }: UploadProg
                   : 'border-gray-200 bg-gray-50'
             }`}
           >
-            <span className="text-lg">
+            <span className="flex items-center justify-center w-5 h-5">
               {step.status === 'processing' ? (
                 <span className="inline-block w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
               ) : (
-                statusIcons[step.status]
+                (() => {
+                  const config = statusConfig[step.status];
+                  if (!config) return null;
+                  const { Icon, className } = config;
+                  return <Icon size={20} weight="duotone" className={className} />;
+                })()
               )}
             </span>
             <div className="flex-1">

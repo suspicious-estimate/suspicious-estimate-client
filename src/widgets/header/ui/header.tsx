@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { CaretLeftIcon } from '@phosphor-icons/react/ssr';
 
 interface HeaderProps {
   title: string;
@@ -18,7 +19,7 @@ export function Header({ title, backHref, rightAction, rightText }: HeaderProps)
               href={backHref}
               className="flex items-center justify-center w-8 h-8 -ml-2 rounded-full hover:bg-gray-100 transition-colors"
             >
-              <span className="text-lg">←</span>
+              <CaretLeftIcon size={20} weight="bold" className="text-gray-700" />
             </Link>
           )}
           <h1 className="text-lg font-semibold text-gray-900 truncate">{title}</h1>

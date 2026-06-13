@@ -1,4 +1,5 @@
 'use client';
+import { ClipboardTextIcon } from '@phosphor-icons/react/ssr';
 
 interface MissingItemProps {
   title: string;
@@ -14,7 +15,11 @@ export function MissingItem({ title, description }: MissingItemProps) {
           - 제목 + 설명
       */}
       <div className="flex items-start gap-2.5">
-        <span className="text-base flex-shrink-0 mt-0.5">📋</span>
+        <ClipboardTextIcon
+          size={18}
+          weight="duotone"
+          className="flex-shrink-0 mt-0.5 text-green-600"
+        />
         <div>
           <p className="text-sm font-medium text-green-800">{title}</p>
           <p className="text-xs text-gray-600 mt-0.5">{description}</p>

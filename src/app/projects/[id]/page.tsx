@@ -4,6 +4,17 @@ import Link from 'next/link';
 import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
 import { useProject } from '@/entities/project/model/use-project';
 import { formatCurrency } from '@/shared/lib/format';
+import type { Icon } from '@phosphor-icons/react/lib';
+import {
+  UploadSimpleIcon,
+  ListChecksIcon,
+  ChatCircleIcon,
+  ChartBarIcon,
+  BuildingsIcon,
+  CoinsIcon,
+  CalendarBlankIcon,
+  FolderOpenIcon,
+} from '@phosphor-icons/react/ssr';
 
 export default function ProjectDashboardPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -19,11 +30,11 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
     );
   }
 
-  const quickActions = [
-    { icon: '📤', label: '자료 올리기', href: `/projects/${id}/upload` },
-    { icon: '📋', label: '타임라인', href: `/projects/${id}/timeline` },
-    { icon: '💬', label: 'AI 상담', href: `/projects/${id}/assistant` },
-    { icon: '📊', label: '견적 분석', href: `/projects/${id}/estimate` },
+  const quickActions: { icon: Icon; label: string; href: string }[] = [
+    { icon: UploadSimpleIcon, label: '자료 올리기', href: `/projects/${id}/upload` },
+    { icon: ListChecksIcon, label: '타임라인', href: `/projects/${id}/timeline` },
+    { icon: ChatCircleIcon, label: 'AI 상담', href: `/projects/${id}/assistant` },
+    { icon: ChartBarIcon, label: '견적 분석', href: `/projects/${id}/estimate` },
   ];
 
   return (
@@ -47,16 +58,21 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
             </span>
           </div>
           {project.contractor_name && (
-            <p className="text-sm text-gray-600 mb-1">🏗️ {project.contractor_name}</p>
+            <p className="flex items-center gap-1.5 text-sm text-gray-600 mb-1">
+              <BuildingsIcon size={16} weight="duotone" className="text-gray-400" />
+              {project.contractor_name}
+            </p>
           )}
           {project.contract_amount && (
-            <p className="text-sm text-gray-600 mb-1">
-              💰 {formatCurrency(project.contract_amount)}
+            <p className="flex items-center gap-1.5 text-sm text-gray-600 mb-1">
+              <CoinsIcon size={16} weight="duotone" className="text-gray-400" />
+              {formatCurrency(project.contract_amount)}
             </p>
           )}
           {project.start_date && (
-            <p className="text-sm text-gray-500">
-              📅 {project.start_date} ~ {project.end_date || '미정'}
+            <p className="flex items-center gap-1.5 text-sm text-gray-500">
+              <CalendarBlankIcon size={16} weight="duotone" className="text-gray-400" />
+              {project.start_date} ~ {project.end_date || '미정'}
             </p>
           )}
         </div>
@@ -68,7 +84,7 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
               href={action.href}
               className="flex flex-col items-center gap-2 p-4 rounded-xl border border-gray-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all"
             >
-              <span className="text-2xl">{action.icon}</span>
+              <action.icon size={28} weight="duotone" className="text-blue-600" />
               <span className="text-sm font-medium text-gray-700">{action.label}</span>
             </Link>
           ))}
@@ -78,7 +94,10 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
           href={`/projects/${id}/export`}
           className="block w-full p-4 bg-gray-50 rounded-xl border border-gray-200 text-center hover:bg-gray-100 transition-colors"
         >
-          <span className="text-sm text-gray-600">📁 내보내기 · 보관</span>
+          <span className="inline-flex items-center gap-1.5 text-sm text-gray-600">
+            <FolderOpenIcon size={18} weight="duotone" className="text-gray-500" />
+            내보내기 · 보관
+          </span>
         </Link>
       </div>
       <BottomNav projectId={id} />

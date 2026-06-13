@@ -7,6 +7,7 @@ import { FileUploader } from '@/features/upload/ui/file-uploader';
 import { UploadProgress } from '@/features/upload/ui/upload-progress';
 import { useUpload } from '@/features/upload/model/use-upload';
 import { useQuota } from '@/entities/quota/model/use-quota';
+import { CheckCircleIcon } from '@phosphor-icons/react/ssr';
 
 export default function UploadPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -32,7 +33,7 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
         </>
       ) : status === 'done' ? (
         <div className="flex flex-col items-center py-12 px-4">
-          <span className="text-5xl mb-4">✅</span>
+          <CheckCircleIcon size={56} weight="duotone" className="text-green-500 mb-4" />
           <p className="text-lg font-medium text-gray-900 mb-2">업로드 완료!</p>
           <p className="text-sm text-gray-500 mb-6">타임라인에서 결과를 확인하세요</p>
           <button

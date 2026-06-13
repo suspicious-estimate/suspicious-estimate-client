@@ -1,4 +1,5 @@
 'use client';
+import { MagnifyingGlassIcon, XIcon } from '@phosphor-icons/react/ssr';
 
 interface SearchBarProps {
   value: string;
@@ -16,7 +17,11 @@ export function SearchBar({ value, onChange, placeholder = '검색...' }: Search
           - 입력 시 우측 X 클리어 버튼
       */}
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+        <MagnifyingGlassIcon
+          size={18}
+          weight="bold"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        />
         <input
           type="text"
           value={value}
@@ -27,9 +32,9 @@ export function SearchBar({ value, onChange, placeholder = '검색...' }: Search
         {value && (
           <button
             onClick={() => onChange('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            ✕
+            <XIcon size={16} weight="bold" />
           </button>
         )}
       </div>
