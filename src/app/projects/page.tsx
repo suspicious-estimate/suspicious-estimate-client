@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { ProjectCard } from '@/components/project/ProjectCard';
-import { OnboardingGuide } from '@/components/common/OnboardingGuide';
-import { useProjects } from '@/hooks/useProject';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { ProjectCard } from '@/entities/project/ui/project-card';
+import { OnboardingGuide } from '@/features/onboarding/ui/onboarding-guide';
+import { useProjects } from '@/entities/project/model/use-project';
 
 export default function ProjectsPage() {
   const router = useRouter();

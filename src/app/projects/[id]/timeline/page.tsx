@@ -1,11 +1,11 @@
 'use client';
 import { use, useState } from 'react';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { SearchBar } from '@/components/timeline/SearchBar';
-import { CategoryFilter } from '@/components/timeline/CategoryFilter';
-import { TimelineView } from '@/components/timeline/TimelineView';
-import { useTimeline } from '@/hooks/useTimeline';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { SearchBar } from '@/shared/ui/search-bar';
+import { CategoryFilter } from '@/features/timeline-filter/ui/category-filter';
+import { TimelineView } from '@/entities/timeline/ui/timeline-view';
+import { useTimeline } from '@/entities/timeline/model/use-timeline';
 
 export default function TimelinePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

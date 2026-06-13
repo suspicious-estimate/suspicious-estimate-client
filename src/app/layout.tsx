@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/cn";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 

@@ -1,13 +1,13 @@
 'use client';
 import { use } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { EstimateScore } from '@/components/estimate/EstimateScore';
-import { RiskItem } from '@/components/estimate/RiskItem';
-import { MissingItem } from '@/components/estimate/MissingItem';
-import { EmptyState } from '@/components/common/EmptyState';
-import { MOCK_ESTIMATE } from '@/lib/mock-data';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { EstimateScore } from '@/entities/estimate/ui/estimate-score';
+import { RiskItem } from '@/entities/estimate/ui/risk-item';
+import { MissingItem } from '@/entities/estimate/ui/missing-item';
+import { EmptyState } from '@/shared/ui/empty-state';
+import { MOCK_ESTIMATE } from '@/entities/estimate/model/mock';
 
 export default function EstimatePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

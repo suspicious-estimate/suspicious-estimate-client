@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { ProjectForm } from '@/components/project/ProjectForm';
-import { useCreateProject } from '@/hooks/useProject';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { ProjectForm } from '@/features/create-project/ui/project-form';
+import { useCreateProject } from '@/entities/project/model/use-project';
 
 export default function NewProjectPage() {
   const router = useRouter();
@@ -21,6 +21,6 @@ export default function NewProjectPage() {
         <ProjectForm onSubmit={handleSubmit} isLoading={isLoading} />
       </div>
       <BottomNav />
-    </MobileLayout>
+    </>
   );
 }

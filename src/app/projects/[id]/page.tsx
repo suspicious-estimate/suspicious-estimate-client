@@ -1,9 +1,9 @@
 'use client';
 import { use } from 'react';
 import Link from 'next/link';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { useProject } from '@/hooks/useProject';
-import { formatCurrency } from '@/lib/utils';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { useProject } from '@/entities/project/model/use-project';
+import { formatCurrency } from '@/shared/lib/format';
 
 export default function ProjectDashboardPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
