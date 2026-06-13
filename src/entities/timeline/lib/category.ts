@@ -1,4 +1,8 @@
-import { ProcessCategory, ProcessCategoryInfo, PROCESS_CATEGORIES } from '@/entities/timeline/model/types';
+import {
+  ProcessCategory,
+  ProcessCategoryInfo,
+  PROCESS_CATEGORIES,
+} from '@/entities/timeline/model/types';
 
 export function getCategoryInfo(id: ProcessCategory): ProcessCategoryInfo {
   return (

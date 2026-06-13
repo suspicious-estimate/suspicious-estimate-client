@@ -42,11 +42,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background">
-        <div className="noise-surface mx-auto max-w-[430px] min-h-screen bg-surface relative w-full shadow-[0_0_60px_-20px_rgba(125,92,189,0.25)]">
+        <div className="mx-auto max-w-[430px] min-h-screen bg-surface relative w-full">
           {children}
         </div>
-        {/* 전역 노이즈 그레인 오버레이 */}
-        <div className="noise-overlay" aria-hidden="true" />
       </body>
     </html>
   );
