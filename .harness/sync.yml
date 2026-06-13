@@ -1,26 +1,21 @@
-# AI Harness 동기화 설정
-# 참고: https://github.com/themoment-team/themoment-ai-harness-sync/wiki/Per-Repo-Config
-
 groups:
   - claude
+  - codex
 
-# 훅은 opt-in 전용이며, dispatcher + settings 가 함께 켜져야 동작합니다.
 overrides:
-  # --- 훅 동작에 필요한 필수 항목 ---
-  dispatcher: true
-  settings: true
+  claude/skills/kotest-guide: false
+  claude/skills/kotlin-spring-arch: false
+  claude/skills/migration-guide: false
+  claude/skills/database-schema: false
 
-  # --- 이 레포(Next.js 16 / TS / ESLint 9 / Prettier 3)에 맞는 훅 ---
-  eslint: true
-  prettier: true
-  ts-check: true
+  claude/hooks/dispatcher: true
+  claude/settings: true
+  claude/hooks/secret-guard: true
+  claude/hooks/command-guard: true
+  claude/hooks/biome: false
+  claude/hooks/eslint: true
+  claude/hooks/prettier: true
+  claude/hooks/ts-check: true
 
-  # --- 이 프로젝트와 무관해 제외하려면 주석 해제 (Kotlin/Spring 전용) ---
-  # kotlin-spring-arch: false
-  # kotest-guide: false
-  # spotless: false
-  # ktlint: false
-  # kotest: false
-
-base_branch: main
 language: ko
+base_branch: develop
