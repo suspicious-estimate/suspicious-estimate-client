@@ -15,6 +15,7 @@ import {
   CalendarBlankIcon,
   FolderOpenIcon,
 } from '@phosphor-icons/react/ssr';
+import { Header } from '@/widgets/header/ui/header';
 
 export default function ProjectDashboardPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -39,6 +40,7 @@ export default function ProjectDashboardPage({ params }: { params: Promise<{ id:
 
   return (
     <>
+      <Header title="프로젝트" backHref={`/`} />
       <div className="px-4 pt-6 pb-24">
         {/* TODO: 목업 화면 7번(대시보드) 참고하여 구현
             - 프로젝트 요약 카드 (제목, 업체, 금액, 기간, 상태뱃지)
