@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { CaretLeftIcon } from '@phosphor-icons/react/ssr';
+import { Button } from '@/shared/ui/button';
 
 interface HeaderProps {
   title: string;
@@ -30,12 +31,9 @@ export function Header({ title, backHref, rightAction, rightText }: HeaderProps)
             <span className="text-sm text-gray-500 truncate max-w-[120px]">{rightText}</span>
           )}
           {rightAction && (
-            <button
-              onClick={rightAction.onClick}
-              className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors px-2 py-1 rounded"
-            >
+            <Button variant="ghost" size="xs" onClick={rightAction.onClick}>
               {rightAction.label}
-            </button>
+            </Button>
           )}
         </div>
       </div>

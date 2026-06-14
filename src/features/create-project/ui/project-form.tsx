@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { ProjectCreate } from '@/entities/project/model/types';
+import { Button } from '@/shared/ui/button';
 
 interface ProjectFormProps {
   onSubmit: (data: ProjectCreate) => void;
@@ -108,13 +109,9 @@ export function ProjectForm({ onSubmit, isLoading }: ProjectFormProps) {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={!title.trim() || isLoading}
-        className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-      >
+      <Button type="submit" size="lg" fullWidth disabled={!title.trim() || isLoading}>
         {isLoading ? '생성 중...' : '프로젝트 생성'}
-      </button>
+      </Button>
     </form>
   );
 }

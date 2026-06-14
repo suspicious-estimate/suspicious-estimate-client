@@ -76,7 +76,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <ChatCircleIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">카톡 대화</span>
@@ -84,7 +84,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <CameraIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">사진</span>
@@ -92,7 +92,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <FileTextIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">서류</span>

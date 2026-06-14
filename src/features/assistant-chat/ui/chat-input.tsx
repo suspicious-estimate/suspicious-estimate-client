@@ -29,7 +29,7 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
         <button
           type="button"
           onClick={onPhotoAttach}
-          className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+          className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
         >
           <CameraIcon size={22} weight="duotone" className="text-gray-500" />
         </button>
@@ -47,7 +47,7 @@ export function ChatInput({ onSend, onPhotoAttach, disabled }: ChatInputProps) {
       <button
         type="submit"
         disabled={!text.trim() || disabled}
-        className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+        className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white disabled:bg-gray-300 cursor-pointer disabled:cursor-not-allowed transition-colors"
       >
         <ArrowUpIcon size={18} weight="bold" />
       </button>
