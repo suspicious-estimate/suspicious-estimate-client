@@ -4,6 +4,7 @@ import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
 import { ProjectCard } from '@/entities/project/ui/project-card';
 import { OnboardingGuide } from '@/features/onboarding/ui/onboarding-guide';
 import { useProjects } from '@/entities/project/model/use-project';
+import { Button } from '@/shared/ui/button';
 
 export default function ProjectsPage() {
   const router = useRouter();
@@ -38,12 +39,9 @@ export default function ProjectsPage() {
       <div className="px-4 pt-6 pb-24">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-bold text-gray-900">내 프로젝트</h1>
-          <button
-            onClick={() => router.push('/projects/new')}
-            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-          >
+          <Button size="sm" onClick={() => router.push('/projects/new')}>
             + 새 프로젝트
-          </button>
+          </Button>
         </div>
 
         <div className="space-y-3">

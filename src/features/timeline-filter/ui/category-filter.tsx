@@ -26,7 +26,7 @@ export function CategoryFilter({ selected, onChange }: CategoryFilterProps) {
           <button
             key={cat.id}
             onClick={() => onChange(cat.id)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
               isActive ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
             style={isActive ? { backgroundColor: cat.color } : undefined}

@@ -6,6 +6,7 @@ import { useQuota } from '@/entities/quota/model/use-quota';
 import { useAuth } from '@/entities/user/model/use-auth';
 import { formatFileSize } from '@/shared/lib/format';
 import { UserCircleIcon } from '@phosphor-icons/react/ssr';
+import { Button } from '@/shared/ui/button';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -74,12 +75,9 @@ export default function SettingsPage() {
         </div>
 
         {/* 로그아웃 */}
-        <button
-          onClick={handleLogout}
-          className="w-full py-3 text-sm text-red-600 font-medium border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
-        >
+        <Button variant="danger" size="lg" fullWidth onClick={handleLogout}>
           로그아웃
-        </button>
+        </Button>
       </div>
 
       <BottomNav />

@@ -51,7 +51,7 @@ export default function LoginPage() {
 
           <button
             onClick={handleKakaoLogin}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FEE500] py-3.5 font-medium text-[#191919] transition-colors hover:bg-[#FDD835]"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FEE500] py-3.5 font-medium text-[#191919] transition-colors hover:bg-[#FDD835] cursor-pointer"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path

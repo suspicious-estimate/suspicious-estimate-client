@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import type { Icon } from '@phosphor-icons/react/lib';
 import { ClipboardTextIcon, UploadSimpleIcon, ShieldCheckIcon } from '@phosphor-icons/react/ssr';
+import { Button } from '@/shared/ui/button';
 
 interface OnboardingGuideProps {
   onSkip: () => void;
@@ -48,7 +49,7 @@ export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
           <button
             key={idx}
             onClick={() => setCurrentStep(idx)}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
               idx === currentStep ? 'bg-blue-600' : 'bg-gray-300'
             }`}
           />
@@ -57,23 +58,17 @@ export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
 
       <div className="w-full space-y-3">
         {currentStep < STEPS.length - 1 ? (
-          <button
-            onClick={() => setCurrentStep((prev) => prev + 1)}
-            className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-          >
+          <Button size="lg" fullWidth onClick={() => setCurrentStep((prev) => prev + 1)}>
             다음
-          </button>
+          </Button>
         ) : (
-          <button
-            onClick={onStart}
-            className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-          >
+          <Button size="lg" fullWidth onClick={onStart}>
             시작하기
-          </button>
+          </Button>
         )}
         <button
           onClick={onSkip}
-          className="w-full py-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          className="w-full py-2 text-sm text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
         >
           건너뛰기
         </button>

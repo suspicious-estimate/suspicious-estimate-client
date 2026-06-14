@@ -41,7 +41,7 @@ export function ExportOptions({ onPdf, onZip, onArchive }: ExportOptionsProps) {
         <button
           key={opt.title}
           onClick={opt.onClick}
-          className="w-full flex items-center gap-4 p-4 rounded-xl border border-gray-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left"
+          className="w-full flex items-center gap-4 p-4 rounded-xl border border-gray-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left cursor-pointer"
         >
           <opt.icon size={28} weight="duotone" className="flex-shrink-0 text-blue-600" />
           <div className="flex-1">

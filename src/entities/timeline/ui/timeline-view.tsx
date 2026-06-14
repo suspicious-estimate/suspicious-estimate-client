@@ -2,6 +2,7 @@
 import { TimelineItem as TimelineItemType } from '@/entities/timeline/model/types';
 import { TimelineItem } from './timeline-item';
 import { groupTimelineByDate } from '@/entities/timeline/lib/group';
+import { Button } from '@/shared/ui/button';
 
 interface TimelineViewProps {
   items: TimelineItemType[];
@@ -50,12 +51,9 @@ export function TimelineView({ items, onLoadMore, hasMore, isLoading }: Timeline
       ))}
 
       {hasMore && (
-        <button
-          onClick={onLoadMore}
-          className="w-full py-3 text-sm text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors"
-        >
+        <Button variant="ghost" size="lg" fullWidth onClick={onLoadMore}>
           더 보기
-        </button>
+        </Button>
       )}
     </div>
   );

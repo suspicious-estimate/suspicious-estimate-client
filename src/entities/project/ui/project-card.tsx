@@ -11,7 +11,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full text-left bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-200 hover:shadow-sm transition-all"
+      className="w-full text-left bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-200 hover:shadow-sm transition-all cursor-pointer"
     >
       {/* TODO: 목업 화면 3번(프로젝트 목록) 참고하여 구현
           - 제목 (bold)

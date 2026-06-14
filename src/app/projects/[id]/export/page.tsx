@@ -1,7 +1,5 @@
 'use client';
 import { use } from 'react';
-import { Header } from '@/widgets/header/ui/header';
-import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
 import { StorageUsage } from '@/entities/quota/ui/storage-usage';
 import { ExportOptions } from '@/features/export/ui/export-options';
 import { useQuota } from '@/entities/quota/model/use-quota';
@@ -27,8 +25,8 @@ export default function ExportPage({ params }: { params: Promise<{ id: string }>
   };
 
   return (
-    <>
-      <Header title="내보내기" backHref={`/projects/${id}`} />
+    <div className="pb-24">
+      <h2 className="px-4 pt-4 pb-1 text-base font-semibold text-gray-900">내보내기</h2>
       <StorageUsage used={used} limit={limit} plan={plan} />
       <ExportOptions onPdf={handlePdf} onZip={handleZip} onArchive={handleArchive} />
 
@@ -44,8 +42,6 @@ export default function ExportPage({ params }: { params: Promise<{ id: string }>
           </p>
         </div>
       </div>
-
-      <BottomNav projectId={id} />
-    </>
+    </div>
   );
 }

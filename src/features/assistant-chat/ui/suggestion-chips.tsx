@@ -19,7 +19,7 @@ export function SuggestionChips({ suggestions, onSelect }: SuggestionChipsProps)
         <button
           key={suggestion}
           onClick={() => onSelect(suggestion)}
-          className="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-blue-600 border border-blue-200 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap"
+          className="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-blue-600 border border-blue-200 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap cursor-pointer"
         >
           {suggestion}
         </button>

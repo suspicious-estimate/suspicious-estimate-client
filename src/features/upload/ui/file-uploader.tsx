@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   FolderOpenIcon,
   ChatCircleIcon,
@@ -16,16 +16,13 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setIsDragging(false);
-      if (disabled) return;
-      const files = Array.from(e.dataTransfer.files);
-      if (files.length > 0) onFilesSelected(files);
-    },
-    [onFilesSelected, disabled],
-  );
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (disabled) return;
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) onFilesSelected(files);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -76,7 +73,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <ChatCircleIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">카톡 대화</span>
@@ -84,7 +81,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <CameraIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">사진</span>
@@ -92,7 +89,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         <button
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           <FileTextIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">서류</span>
