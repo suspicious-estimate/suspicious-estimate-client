@@ -1,0 +1,36 @@
+import { Project } from '@/entities/project/model/types';
+
+export const MOCK_PROJECTS: Project[] = [
+  {
+    id: 'proj-001',
+    user_id: 'user-001',
+    title: '우리집 25평 인테리어',
+    address: '서울시 강남구 역삼동',
+    contractor_name: '행복건설',
+    contract_amount: 28000000,
+    start_date: '2024-03-15',
+    end_date: '2024-04-30',
+    status: 'active',
+    storage_size_bytes: 1288490188,
+    created_at: '2024-03-10T09:00:00Z',
+    updated_at: '2024-03-25T14:30:00Z',
+    timeline_count: 585,
+    photo_count: 127,
+  },
+  {
+    id: 'proj-002',
+    user_id: 'user-001',
+    title: '원룸 도배+장판',
+    address: '서울시 관악구 봉천동',
+    contractor_name: '깔끔인테리어',
+    contract_amount: 3500000,
+    start_date: '2024-02-01',
+    end_date: '2024-02-05',
+    status: 'completed',
+    storage_size_bytes: 234881024,
+    created_at: '2024-01-28T10:00:00Z',
+    updated_at: '2024-02-06T09:00:00Z',
+    timeline_count: 112,
+    photo_count: 23,
+  },
+];

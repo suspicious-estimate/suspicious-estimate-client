@@ -1,24 +1,25 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { MobileLayout } from '@/components/layout/MobileLayout'
-import { Header } from '@/components/layout/Header'
-import { BottomNav } from '@/components/layout/BottomNav'
-import { useQuota } from '@/hooks/useQuota'
-import { useAuth } from '@/hooks/useAuth'
-import { formatFileSize } from '@/lib/utils'
+'use client';
+import { useRouter } from 'next/navigation';
+import { Header } from '@/widgets/header/ui/header';
+import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
+import { useQuota } from '@/entities/quota/model/use-quota';
+import { useAuth } from '@/entities/user/model/use-auth';
+import { formatFileSize } from '@/shared/lib/format';
+import { UserCircleIcon } from '@phosphor-icons/react/ssr';
+import { Button } from '@/shared/ui/button';
 
 export default function SettingsPage() {
-  const router = useRouter()
-  const { used, limit, plan, fileCount, fileLimit } = useQuota()
-  const { user, logout } = useAuth()
+  const router = useRouter();
+  const { used, limit, plan, fileCount, fileLimit } = useQuota();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    logout()
-    router.push('/login')
-  }
+    logout();
+    router.push('/login');
+  };
 
   return (
-    <MobileLayout>
+    <>
       <Header title="설정" />
 
       <div className="px-4 pt-4 pb-24 space-y-4">
@@ -28,7 +29,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-lg">👤</span>
+              <UserCircleIcon size={28} weight="duotone" className="text-blue-600" />
             </div>
             <div>
               <p className="font-medium text-gray-900">{user?.name || '사용자'}</p>
@@ -54,7 +55,9 @@ export default function SettingsPage() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">파일 수</span>
-            <span className="text-sm text-gray-900">{fileCount} / {fileLimit}개</span>
+            <span className="text-sm text-gray-900">
+              {fileCount} / {fileLimit}개
+            </span>
           </div>
         </div>
 
@@ -72,15 +75,12 @@ export default function SettingsPage() {
         </div>
 
         {/* 로그아웃 */}
-        <button
-          onClick={handleLogout}
-          className="w-full py-3 text-sm text-red-600 font-medium border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
-        >
+        <Button variant="danger" size="lg" fullWidth onClick={handleLogout}>
           로그아웃
-        </button>
+        </Button>
       </div>
 
       <BottomNav />
-    </MobileLayout>
-  )
+    </>
+  );
 }

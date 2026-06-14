@@ -1,0 +1,21 @@
+groups:
+  - claude
+  - codex
+
+overrides:
+  claude/skills/kotest-guide: false
+  claude/skills/kotlin-spring-arch: false
+  claude/skills/migration-guide: false
+  claude/skills/database-schema: false
+
+  claude/hooks/dispatcher: true
+  claude/settings: true
+  claude/hooks/secret-guard: true
+  claude/hooks/command-guard: true
+  claude/hooks/biome: false
+  claude/hooks/eslint: true
+  claude/hooks/prettier: true
+  claude/hooks/ts-check: true
+
+language: ko
+base_branch: develop
