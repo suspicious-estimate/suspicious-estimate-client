@@ -1,17 +1,227 @@
 @import 'tailwindcss';
 
+/* =========================================================
+   디자인 시스템: 파스텔 무드 + 노이즈 텍스처
+   앱 아이콘(라일락 캐릭터 · 민트 목도리 · 크림 말풍선)에서 추출한
+   소프트 파스텔 팔레트. 컴포넌트가 직접 쓰는 Tailwind 색 램프
+   (blue/gray/green/amber/red …)를 파스텔 값으로 재정의해
+   개별 파일 수정 없이 전체 톤을 한 번에 전환한다.
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 표면 / 텍스트 */
+  --background: #f6f1e8; /* 크림 페이지 배경 */
+  --surface: #fcfaf6; /* 카드 표면 (warm white) */
+  --foreground: #332e3a; /* 본문 텍스트 (plum-ink) */
+
+  /* 시맨틱 컬러 */
+  --primary: #7d5cbd; /* 라일락 (머리카락) */
+  --secondary: #4dbb96; /* 민트 (목도리) */
+  --success: #36a07d;
+  --warning: #e0a23c;
+  --danger: #cf5570;
 }
 
 @theme inline {
+  /* ---- 시맨틱 토큰 ---- */
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --color-primary: #2563eb;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-danger: #dc2626;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* ---- 오프화이트: 모든 bg-white 표면을 살짝 따뜻하게 ---- */
+  --color-white: #fcfaf6;
+
+  /* ---- 라일락 (primary): blue / indigo / violet / purple ---- */
+  --color-blue-50: #f4f0fb;
+  --color-blue-100: #e9e1f7;
+  --color-blue-200: #d6c8f0;
+  --color-blue-300: #bda6e4;
+  --color-blue-400: #a487d8;
+  --color-blue-500: #8f6fcb;
+  --color-blue-600: #7d5cbd;
+  --color-blue-700: #6a4aa6;
+  --color-blue-800: #563b87;
+  --color-blue-900: #3f2c63;
+
+  --color-indigo-50: #f4f0fb;
+  --color-indigo-100: #e9e1f7;
+  --color-indigo-200: #d6c8f0;
+  --color-indigo-300: #bda6e4;
+  --color-indigo-400: #a487d8;
+  --color-indigo-500: #8f6fcb;
+  --color-indigo-600: #7d5cbd;
+  --color-indigo-700: #6a4aa6;
+  --color-indigo-800: #563b87;
+  --color-indigo-900: #3f2c63;
+
+  --color-violet-50: #f4f0fb;
+  --color-violet-100: #e9e1f7;
+  --color-violet-200: #d6c8f0;
+  --color-violet-300: #bda6e4;
+  --color-violet-400: #a487d8;
+  --color-violet-500: #8f6fcb;
+  --color-violet-600: #7d5cbd;
+  --color-violet-700: #6a4aa6;
+  --color-violet-800: #563b87;
+  --color-violet-900: #3f2c63;
+
+  --color-purple-50: #f4f0fb;
+  --color-purple-100: #e9e1f7;
+  --color-purple-200: #d6c8f0;
+  --color-purple-300: #bda6e4;
+  --color-purple-400: #a487d8;
+  --color-purple-500: #8f6fcb;
+  --color-purple-600: #7d5cbd;
+  --color-purple-700: #6a4aa6;
+  --color-purple-800: #563b87;
+  --color-purple-900: #3f2c63;
+
+  --color-sky-50: #eef3fb;
+  --color-sky-100: #dde8f5;
+  --color-sky-200: #c4d6ee;
+  --color-sky-300: #a6bfe2;
+  --color-sky-400: #8aa6d6;
+  --color-sky-500: #7390c9;
+  --color-sky-600: #6079b5;
+
+  /* ---- 웜 그레이지: gray / slate / zinc / neutral / stone ---- */
+  --color-gray-50: #f8f5f1;
+  --color-gray-100: #f1ece4;
+  --color-gray-200: #e4ddd2;
+  --color-gray-300: #d2c8ba;
+  --color-gray-400: #b3a898;
+  --color-gray-500: #8c8174;
+  --color-gray-600: #6b6257;
+  --color-gray-700: #524b43;
+  --color-gray-800: #3c372f;
+  --color-gray-900: #332e3a;
+
+  --color-slate-50: #f8f5f1;
+  --color-slate-100: #f1ece4;
+  --color-slate-200: #e4ddd2;
+  --color-slate-300: #d2c8ba;
+  --color-slate-400: #b3a898;
+  --color-slate-500: #8c8174;
+  --color-slate-600: #6b6257;
+  --color-slate-700: #524b43;
+  --color-slate-800: #3c372f;
+  --color-slate-900: #332e3a;
+
+  --color-zinc-50: #f8f5f1;
+  --color-zinc-100: #f1ece4;
+  --color-zinc-200: #e4ddd2;
+  --color-zinc-300: #d2c8ba;
+  --color-zinc-400: #b3a898;
+  --color-zinc-500: #8c8174;
+  --color-zinc-600: #6b6257;
+  --color-zinc-700: #524b43;
+  --color-zinc-800: #3c372f;
+  --color-zinc-900: #332e3a;
+
+  --color-neutral-50: #f8f5f1;
+  --color-neutral-100: #f1ece4;
+  --color-neutral-200: #e4ddd2;
+  --color-neutral-300: #d2c8ba;
+  --color-neutral-400: #b3a898;
+  --color-neutral-500: #8c8174;
+  --color-neutral-600: #6b6257;
+  --color-neutral-700: #524b43;
+  --color-neutral-800: #3c372f;
+  --color-neutral-900: #332e3a;
+
+  --color-stone-50: #f8f5f1;
+  --color-stone-100: #f1ece4;
+  --color-stone-200: #e4ddd2;
+  --color-stone-300: #d2c8ba;
+  --color-stone-400: #b3a898;
+  --color-stone-500: #8c8174;
+  --color-stone-600: #6b6257;
+  --color-stone-700: #524b43;
+  --color-stone-800: #3c372f;
+  --color-stone-900: #332e3a;
+
+  /* ---- 민트 (success): green / emerald / teal ---- */
+  --color-green-50: #ecf8f2;
+  --color-green-100: #d7f0e5;
+  --color-green-200: #b3e3cf;
+  --color-green-300: #88d3b6;
+  --color-green-400: #5fc49d;
+  --color-green-500: #4dbb96;
+  --color-green-600: #36a07d;
+  --color-green-700: #2c8167;
+  --color-green-800: #266a56;
+
+  --color-emerald-50: #ecf8f2;
+  --color-emerald-100: #d7f0e5;
+  --color-emerald-200: #b3e3cf;
+  --color-emerald-300: #88d3b6;
+  --color-emerald-400: #5fc49d;
+  --color-emerald-500: #4dbb96;
+  --color-emerald-600: #36a07d;
+  --color-emerald-700: #2c8167;
+  --color-emerald-800: #266a56;
+
+  --color-teal-50: #ecf8f4;
+  --color-teal-100: #d7f0ea;
+  --color-teal-200: #b3e3d8;
+  --color-teal-500: #45b8a4;
+  --color-teal-600: #319e8c;
+  --color-teal-700: #287f71;
+
+  /* ---- 허니 (warning): amber / yellow / orange ---- */
+  --color-amber-50: #fbf3e3;
+  --color-amber-100: #f7e7c4;
+  --color-amber-200: #f1d79f;
+  --color-amber-300: #ebc472;
+  --color-amber-400: #e6b251;
+  --color-amber-500: #e0a23c;
+  --color-amber-600: #c9892f;
+  --color-amber-700: #a9742a;
+  --color-amber-800: #8a5e23;
+
+  --color-yellow-50: #fbf6e0;
+  --color-yellow-100: #f6ecbe;
+  --color-yellow-200: #eedd92;
+  --color-yellow-500: #d9bb46;
+  --color-yellow-700: #a48a2d;
+
+  --color-orange-50: #fbf0e3;
+  --color-orange-100: #f7e0c5;
+  --color-orange-200: #f0c79c;
+  --color-orange-500: #e08e4b;
+  --color-orange-600: #c9763a;
+  --color-orange-700: #a9602d;
+
+  /* ---- 로즈 (danger): red / rose / pink ---- */
+  --color-red-50: #fbeef0;
+  --color-red-100: #f7dde1;
+  --color-red-200: #f3c8ce;
+  --color-red-300: #eba4af;
+  --color-red-400: #e08294;
+  --color-red-500: #d96b80;
+  --color-red-600: #cf5570;
+  --color-red-700: #b03f58;
+  --color-red-800: #8a3247;
+
+  --color-rose-50: #fbeef1;
+  --color-rose-100: #f7dde3;
+  --color-rose-200: #f3c8d2;
+  --color-rose-500: #d96b86;
+  --color-rose-600: #cf5577;
+  --color-rose-700: #b03f5e;
+
+  --color-pink-50: #fbeef4;
+  --color-pink-100: #f7dde9;
+  --color-pink-200: #f3c8d8;
+  --color-pink-500: #d96b9a;
+  --color-pink-600: #cf558a;
+
+  /* ---- 폰트 ---- */
   --font-sans:
     'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
     'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
@@ -19,11 +229,34 @@
 }
 
 body {
-  background: var(--background);
+  /* 크림 베이스 위에 라일락·민트가 은은하게 번지는 그라데이션 */
+  background-color: var(--background);
+  background-image:
+    radial-gradient(120% 80% at 0% 0%, rgba(125, 92, 189, 0.1), transparent 55%),
+    radial-gradient(120% 80% at 100% 0%, rgba(77, 187, 150, 0.08), transparent 55%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   노이즈 텍스처 (.grain)
+   그레인을 "요소의 background-image"로 칠한다. background는 자식보다
+   먼저(아래에) 그려지므로, 표면(.grain)에만 질감이 얹히고 그 위의
+   버튼·아이콘·인풋·텍스트 같은 전경 요소에는 노이즈가 묻지 않는다.
+   => 흰색/크림 배경면과 오가닉 블롭에만 적용한다.
+
+   fractalNoise는 값이 0.5(중간회색)에 몰려 blend에서 묻히므로
+   feComponentTransfer로 대비를 강제로 벌려 그레인을 또렷하게 만든다.
+   background-blend-mode: overlay 로 배경색 위에 그레인을 합성한다.
+   ========================================================= */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncG type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncB type='linear' slope='1.8' intercept='-0.4'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  background-blend-mode: overlay;
 }
 
 /* 스크롤바 숨기기 (가로 스크롤 영역) */

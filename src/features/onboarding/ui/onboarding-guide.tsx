@@ -1,24 +1,26 @@
 'use client';
 import { useState } from 'react';
+import type { Icon } from '@phosphor-icons/react/lib';
+import { ClipboardTextIcon, UploadSimpleIcon, ShieldCheckIcon } from '@phosphor-icons/react/ssr';
 
 interface OnboardingGuideProps {
   onSkip: () => void;
   onStart: () => void;
 }
 
-const STEPS = [
+const STEPS: { icon: Icon; title: string; description: string }[] = [
   {
-    icon: '📋',
+    icon: ClipboardTextIcon,
     title: '프로젝트 만들기',
     description: '인테리어 공사 프로젝트를 생성하고 기본 정보를 입력하세요.',
   },
   {
-    icon: '📤',
+    icon: UploadSimpleIcon,
     title: '자료 올리기',
     description: '카톡 대화, 사진, 견적서를 업로드하면 AI가 자동으로 정리합니다.',
   },
   {
-    icon: '🛡️',
+    icon: ShieldCheckIcon,
     title: '분쟁 대비',
     description: '타임라인과 AI 상담으로 공사 과정을 체계적으로 관리하세요.',
   },
@@ -26,6 +28,7 @@ const STEPS = [
 
 export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const StepIcon = STEPS[currentStep].icon;
 
   return (
     <div className="flex flex-col items-center px-6 py-8">
@@ -35,7 +38,7 @@ export function OnboardingGuide({ onSkip, onStart }: OnboardingGuideProps) {
           - 하단: 도트 인디케이터 + "시작하기" 버튼 + "건너뛰기" 링크
       */}
       <div className="flex-1 flex flex-col items-center justify-center text-center mb-8">
-        <span className="text-6xl mb-6">{STEPS[currentStep].icon}</span>
+        <StepIcon size={72} weight="duotone" className="mb-6 text-blue-600" />
         <h2 className="text-xl font-bold text-gray-900 mb-2">{STEPS[currentStep].title}</h2>
         <p className="text-sm text-gray-500 max-w-[280px]">{STEPS[currentStep].description}</p>
       </div>

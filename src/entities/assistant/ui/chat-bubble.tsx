@@ -23,7 +23,7 @@ export function ChatBubble({ message }: ChatBubbleProps) {
             : 'bg-gray-100 text-gray-900 rounded-bl-md'
         }`}
       >
-        <div className="whitespace-pre-wrap break-words">
+        <div className="whitespace-pre-wrap wrap-break-word">
           {message.content.split(/(\*\*[^*]+\*\*)/).map((part, i) => {
             if (part.startsWith('**') && part.endsWith('**')) {
               return <strong key={i}>{part.slice(2, -2)}</strong>;

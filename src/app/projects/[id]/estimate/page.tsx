@@ -8,6 +8,12 @@ import { RiskItem } from '@/entities/estimate/ui/risk-item';
 import { MissingItem } from '@/entities/estimate/ui/missing-item';
 import { EmptyState } from '@/shared/ui/empty-state';
 import { MOCK_ESTIMATE } from '@/entities/estimate/model/mock';
+import {
+  ChartBarIcon,
+  WarningIcon,
+  ListChecksIcon,
+  ChatCircleIcon,
+} from '@phosphor-icons/react/ssr';
 
 export default function EstimatePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -21,7 +27,7 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
       <>
         <Header title="견적 분석" backHref={`/projects/${id}`} />
         <EmptyState
-          icon="📊"
+          icon={ChartBarIcon}
           title="견적서를 올려주세요"
           description="견적서 PDF나 사진을 업로드하면 AI가 분석해드립니다"
           action={{ label: '업로드하기', onClick: () => {} }}
@@ -45,8 +51,9 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
         <EstimateScore score={estimate.overall_score} />
 
         <section>
-          <h2 className="text-base font-semibold text-gray-900 mb-3">
-            ⚠️ 리스크 항목 ({estimate.risks.length}건)
+          <h2 className="flex items-center gap-1.5 text-base font-semibold text-gray-900 mb-3">
+            <WarningIcon size={20} weight="duotone" className="text-amber-500" />
+            리스크 항목 ({estimate.risks.length}건)
           </h2>
           <div className="space-y-2">
             {estimate.risks.map((risk, idx) => (
@@ -61,8 +68,9 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-gray-900 mb-3">
-            📋 빠진 항목 ({estimate.missing_items.length}건)
+          <h2 className="flex items-center gap-1.5 text-base font-semibold text-gray-900 mb-3">
+            <ListChecksIcon size={20} weight="duotone" className="text-blue-500" />
+            빠진 항목 ({estimate.missing_items.length}건)
           </h2>
           <div className="space-y-2">
             {estimate.missing_items.map((item, idx) => (
@@ -75,7 +83,9 @@ export default function EstimatePage({ params }: { params: Promise<{ id: string 
           href={`/projects/${id}/assistant`}
           className="block w-full p-4 bg-blue-50 border border-blue-200 rounded-xl text-center hover:bg-blue-100 transition-colors"
         >
-          <p className="text-sm font-medium text-blue-700">💬 이 견적에 대해 AI에게 질문하기</p>
+          <p className="flex items-center justify-center gap-1.5 text-sm font-medium text-blue-700">
+            <ChatCircleIcon size={18} weight="duotone" />이 견적에 대해 AI에게 질문하기
+          </p>
           <p className="text-xs text-blue-500 mt-0.5">리스크 항목에 대한 대응 방법을 알려드려요</p>
         </Link>
       </div>

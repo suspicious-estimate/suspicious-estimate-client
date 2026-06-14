@@ -2,6 +2,15 @@
 import { TimelineItem as TimelineItemType } from '@/entities/timeline/model/types';
 import { CategoryBadge } from './category-badge';
 import { formatTime } from '@/shared/lib/format';
+import type { Icon } from '@phosphor-icons/react/lib';
+import {
+  ChatCircleIcon,
+  CameraIcon,
+  FileTextIcon,
+  NotePencilIcon,
+  WarningIcon,
+  ClipboardTextIcon,
+} from '@phosphor-icons/react/ssr';
 
 interface TimelineItemProps {
   item: TimelineItemType;
@@ -9,13 +18,14 @@ interface TimelineItemProps {
 }
 
 export function TimelineItem({ item, onCategoryClick }: TimelineItemProps) {
-  const typeIcons: Record<string, string> = {
-    message: '💬',
-    photo: '📷',
-    document: '📄',
-    memo: '📝',
-    change_request: '⚠️',
+  const typeIcons: Record<string, Icon> = {
+    message: ChatCircleIcon,
+    photo: CameraIcon,
+    document: FileTextIcon,
+    memo: NotePencilIcon,
+    change_request: WarningIcon,
   };
+  const TypeIcon = typeIcons[item.item_type] || ClipboardTextIcon;
 
   return (
     <div className="flex gap-3 py-3 border-b border-gray-50 last:border-0">
@@ -26,8 +36,8 @@ export function TimelineItem({ item, onCategoryClick }: TimelineItemProps) {
           - 사진 타입이면 썸네일 표시
           - change_request면 금액 변동 표시
       */}
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm">
-        {typeIcons[item.item_type] || '📋'}
+      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+        <TypeIcon size={18} weight="duotone" className="text-gray-600" />
       </div>
 
       <div className="flex-1 min-w-0">

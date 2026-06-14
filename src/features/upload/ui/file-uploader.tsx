@@ -1,5 +1,11 @@
 'use client';
 import { useCallback, useRef, useState } from 'react';
+import {
+  FolderOpenIcon,
+  ChatCircleIcon,
+  CameraIcon,
+  FileTextIcon,
+} from '@phosphor-icons/react/ssr';
 
 interface FileUploaderProps {
   onFilesSelected: (files: File[]) => void;
@@ -51,7 +57,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
         } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
         onClick={() => !disabled && fileInputRef.current?.click()}
       >
-        <div className="text-4xl mb-3">📁</div>
+        <FolderOpenIcon size={44} weight="duotone" className="mx-auto mb-3 text-blue-500" />
         <p className="text-sm text-gray-600 mb-2">파일을 여기에 끌어놓거나</p>
         <p className="text-sm font-medium text-blue-600">클릭하여 선택</p>
         <p className="text-xs text-gray-400 mt-3">카톡 txt · 사진(jpg/png/heic) · PDF</p>
@@ -72,7 +78,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
           onClick={() => fileInputRef.current?.click()}
           className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
         >
-          <span className="text-xl">💬</span>
+          <ChatCircleIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">카톡 대화</span>
         </button>
         <button
@@ -80,7 +86,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
           onClick={() => fileInputRef.current?.click()}
           className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
         >
-          <span className="text-xl">📷</span>
+          <CameraIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">사진</span>
         </button>
         <button
@@ -88,7 +94,7 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
           onClick={() => fileInputRef.current?.click()}
           className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
         >
-          <span className="text-xl">📄</span>
+          <FileTextIcon size={22} weight="duotone" className="text-blue-600" />
           <span className="text-xs text-gray-600">서류</span>
         </button>
       </div>

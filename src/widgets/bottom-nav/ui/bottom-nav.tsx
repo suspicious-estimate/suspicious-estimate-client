@@ -1,29 +1,39 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { Icon } from '@phosphor-icons/react/lib';
+import {
+  HouseIcon,
+  UploadSimpleIcon,
+  ListChecksIcon,
+  ChatCircleIcon,
+  ChartBarIcon,
+  PlusIcon,
+  GearSixIcon,
+} from '@phosphor-icons/react/ssr';
 
 interface NavItem {
   label: string;
-  icon: string;
+  icon: Icon;
   href: string;
 }
 
 // 프로젝트 밖(목록·설정 등)에서 보이는 전역 탭
 const GLOBAL_NAV_ITEMS: NavItem[] = [
-  { label: '홈', icon: '🏠', href: '/projects' },
-  { label: '새 프로젝트', icon: '➕', href: '/projects/new' },
-  { label: '더보기', icon: '⚙️', href: '/settings' },
+  { label: '홈', icon: HouseIcon, href: '/projects' },
+  { label: '새 프로젝트', icon: PlusIcon, href: '/projects/new' },
+  { label: '더보기', icon: GearSixIcon, href: '/settings' },
 ];
 
 // 특정 프로젝트에 진입했을 때 보이는 프로젝트 탭
 function getProjectNavItems(projectId: string): NavItem[] {
   return [
-    { label: '홈', icon: '🏠', href: `/projects/${projectId}` },
-    { label: '업로드', icon: '📤', href: `/projects/${projectId}/upload` },
-    { label: '타임라인', icon: '📋', href: `/projects/${projectId}/timeline` },
-    { label: 'AI상담', icon: '💬', href: `/projects/${projectId}/assistant` },
-    { label: '견적', icon: '📊', href: `/projects/${projectId}/estimate` },
-    { label: '더보기', icon: '⚙️', href: '/settings' },
+    { label: '홈', icon: HouseIcon, href: `/projects/${projectId}` },
+    { label: '업로드', icon: UploadSimpleIcon, href: `/projects/${projectId}/upload` },
+    { label: '타임라인', icon: ListChecksIcon, href: `/projects/${projectId}/timeline` },
+    { label: 'AI상담', icon: ChatCircleIcon, href: `/projects/${projectId}/assistant` },
+    { label: '견적', icon: ChartBarIcon, href: `/projects/${projectId}/estimate` },
+    { label: '더보기', icon: GearSixIcon, href: '/settings' },
   ];
 }
 
@@ -50,7 +60,7 @@ export function BottomNav({ projectId }: BottomNavProps) {
                 isActive ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              <span className="text-xl leading-none">{item.icon}</span>
+              <item.icon size={22} weight={isActive ? 'fill' : 'duotone'} />
               <span className="text-[10px] font-medium">{item.label}</span>
             </Link>
           );

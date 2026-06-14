@@ -5,6 +5,7 @@ import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
 import { useQuota } from '@/entities/quota/model/use-quota';
 import { useAuth } from '@/entities/user/model/use-auth';
 import { formatFileSize } from '@/shared/lib/format';
+import { UserCircleIcon } from '@phosphor-icons/react/ssr';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-lg">👤</span>
+              <UserCircleIcon size={28} weight="duotone" className="text-blue-600" />
             </div>
             <div>
               <p className="font-medium text-gray-900">{user?.name || '사용자'}</p>
