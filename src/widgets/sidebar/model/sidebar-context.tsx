@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // 사이드바 아코디언 펼침 상태를 Context로 전역 공유한다.
 // Provider를 root layout(영구 레이아웃) 안에 두므로 라우트 이동/리마운트와
@@ -18,27 +18,24 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [projectsOpen, setProjectsOpen] = useState(true);
   const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({});
 
-  const toggleProjectsOpen = useCallback(() => setProjectsOpen((o) => !o), []);
+  const toggleProjectsOpen = () => setProjectsOpen((o) => !o);
 
-  const setProjectExpanded = useCallback((id: string, open: boolean) => {
+  const setProjectExpanded = (id: string, open: boolean) => {
     // 이미 같은 값이면 새 객체를 만들지 않아 자동 펼침 effect의 불필요한 갱신/루프를 막는다.
     setExpandedProjects((prev) => (!!prev[id] === open ? prev : { ...prev, [id]: open }));
-  }, []);
+  };
 
-  const toggleProjectExpanded = useCallback((id: string) => {
+  const toggleProjectExpanded = (id: string) => {
     setExpandedProjects((prev) => ({ ...prev, [id]: !prev[id] }));
-  }, []);
+  };
 
-  const value = useMemo<SidebarContextValue>(
-    () => ({
-      projectsOpen,
-      toggleProjectsOpen,
-      expandedProjects,
-      toggleProjectExpanded,
-      setProjectExpanded,
-    }),
-    [projectsOpen, toggleProjectsOpen, expandedProjects, toggleProjectExpanded, setProjectExpanded],
-  );
+  const value: SidebarContextValue = {
+    projectsOpen,
+    toggleProjectsOpen,
+    expandedProjects,
+    toggleProjectExpanded,
+    setProjectExpanded,
+  };
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
 }

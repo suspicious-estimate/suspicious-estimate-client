@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   FolderOpenIcon,
   ChatCircleIcon,
@@ -16,16 +16,13 @@ export function FileUploader({ onFilesSelected, disabled }: FileUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setIsDragging(false);
-      if (disabled) return;
-      const files = Array.from(e.dataTransfer.files);
-      if (files.length > 0) onFilesSelected(files);
-    },
-    [onFilesSelected, disabled],
-  );
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (disabled) return;
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) onFilesSelected(files);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
