@@ -1,7 +1,5 @@
 'use client';
 import { use } from 'react';
-import { Header } from '@/widgets/header/ui/header';
-import { BottomNav } from '@/widgets/bottom-nav/ui/bottom-nav';
 import { QuotaBar } from '@/entities/quota/ui/quota-bar';
 import { FileUploader } from '@/features/upload/ui/file-uploader';
 import { UploadProgress } from '@/features/upload/ui/upload-progress';
@@ -18,8 +16,8 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
   const isProcessing = status === 'uploading' || status === 'processing';
 
   return (
-    <>
-      <Header title="자료 올리기" backHref={`/projects/${id}`} />
+    <div className="pb-24">
+      <h2 className="px-4 pt-4 pb-1 text-base font-semibold text-gray-900">자료 올리기</h2>
 
       <QuotaBar used={used} limit={limit} plan={plan} fileCount={fileCount} fileLimit={fileLimit} />
 
@@ -46,8 +44,6 @@ export default function UploadPage({ params }: { params: Promise<{ id: string }>
           estimatedTime="약 30초~1분"
         />
       )}
-
-      <BottomNav projectId={id} />
-    </>
+    </div>
   );
 }

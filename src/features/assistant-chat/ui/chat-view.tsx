@@ -27,7 +27,7 @@ export function ChatView({
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-[calc(100dvh-11rem)] md:h-[calc(100dvh-10rem)]">
       {/* TODO: 목업 화면 8번(AI상담) 참고하여 구현
           - 스크롤 가능한 채팅 영역
           - 하단 고정: 면책고지 + suggestion chips + 입력창
