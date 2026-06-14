@@ -2,7 +2,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Icon } from '@phosphor-icons/react/lib';
-import { ListChecksIcon, ChatCircleIcon, ChartBarIcon } from '@phosphor-icons/react/ssr';
+import {
+  ListChecksIcon,
+  UploadSimpleIcon,
+  ChatCircleIcon,
+  ChartBarIcon,
+} from '@phosphor-icons/react/ssr';
 
 interface TabItem {
   label: string;
@@ -10,10 +15,11 @@ interface TabItem {
   href: string;
 }
 
-// 프로젝트 내부 콘텐츠 탭(항목 내부 전환). 업로드·내보내기는 탭이 아닌 액션으로 분리한다.
+// 프로젝트 내부 탭(항목 내부 전환). 내보내기는 탭이 아닌 헤더 액션으로 분리한다.
 export function getProjectTabItems(projectId: string): TabItem[] {
   return [
     { label: '타임라인', icon: ListChecksIcon, href: `/projects/${projectId}/timeline` },
+    { label: '업로드', icon: UploadSimpleIcon, href: `/projects/${projectId}/upload` },
     { label: 'AI상담', icon: ChatCircleIcon, href: `/projects/${projectId}/assistant` },
     { label: '견적', icon: ChartBarIcon, href: `/projects/${projectId}/estimate` },
   ];

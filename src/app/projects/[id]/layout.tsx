@@ -22,8 +22,8 @@ export default function ProjectLayout({
   const pathname = usePathname();
   const { project } = useProject(id);
 
-  // 업로드 FAB는 콘텐츠 탭(타임라인·견적)에서만. 채팅 입력창이 있는 AI상담,
-  // 업로드/내보내기 화면에서는 겹침/중복을 피해 숨긴다.
+  // 업로드는 탭으로도 제공하되, 빠른 추가를 위한 FAB도 함께 둔다.
+  // 채팅 입력창이 있는 AI상담, 이미 업로드/내보내기 화면에서는 겹침/중복을 피해 숨긴다.
   const showUploadFab = !/\/(assistant|upload|export)(\/|$)/.test(pathname);
 
   const statusLabel =
@@ -60,7 +60,7 @@ export default function ProjectLayout({
 
       <main>{children}</main>
 
-      {/* 업로드: 탭이 아닌 액션(FAB) */}
+      {/* 업로드 빠른 추가 FAB (탭과 별개로 제공) */}
       {showUploadFab && (
         <Link
           href={`/projects/${id}/upload`}
