@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Geist } from 'next/font/google';
 import { cn } from '@/shared/lib/cn';
+import { Sidebar } from '@/widgets/sidebar/ui/sidebar';
+import { SidebarProvider } from '@/widgets/sidebar/model/sidebar-context';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -41,10 +43,15 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className="min-h-full flex flex-col bg-background">
-        <div className="mx-auto max-w-[430px] min-h-screen bg-surface relative w-full">
-          {children}
-        </div>
+      <body className="min-h-full bg-background">
+        <SidebarProvider>
+          <div className="md:flex md:min-h-screen">
+            <Sidebar />
+            <div className="mx-auto w-full max-w-[430px] min-h-screen bg-surface relative md:mx-0 md:max-w-none md:flex-1">
+              <div className="md:mx-auto md:max-w-[720px]">{children}</div>
+            </div>
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );
