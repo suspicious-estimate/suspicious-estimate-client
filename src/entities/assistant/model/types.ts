@@ -16,6 +16,7 @@ export interface ChatResponse {
   suggestions: string[];
   model_used: string;
   tokens_used: number;
+  intent_detected?: string;
 }
 
 export interface DocumentTemplate {
