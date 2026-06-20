@@ -4,6 +4,7 @@ import { Geist } from 'next/font/google';
 import { cn } from '@/shared/lib/cn';
 import { Sidebar } from '@/widgets/sidebar/ui/sidebar';
 import { SidebarProvider } from '@/widgets/sidebar/model/sidebar-context';
+import { QueryProvider } from '@/shared/api/query-provider';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -44,14 +45,16 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full bg-background">
-        <SidebarProvider>
-          <div className="md:flex md:min-h-screen">
-            <Sidebar />
-            <div className="mx-auto w-full max-w-[430px] min-h-screen bg-surface relative md:mx-0 md:max-w-none md:flex-1">
-              <div className="md:mx-auto md:max-w-[720px]">{children}</div>
+        <QueryProvider>
+          <SidebarProvider>
+            <div className="md:flex md:min-h-screen">
+              <Sidebar />
+              <div className="mx-auto w-full max-w-[430px] min-h-screen bg-surface relative md:mx-0 md:max-w-none md:flex-1">
+                <div className="md:mx-auto md:max-w-[720px]">{children}</div>
+              </div>
             </div>
-          </div>
-        </SidebarProvider>
+          </SidebarProvider>
+        </QueryProvider>
       </body>
     </html>
   );
