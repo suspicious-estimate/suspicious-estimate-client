@@ -14,6 +14,10 @@ const eslintConfig = defineConfig([
     'out/**',
     'build/**',
     'next-env.d.ts',
+    // 도구/하네스 디렉토리 (린트 제외)
+    '.agents/**',
+    '.claude/**',
+    '.harness/**',
   ]),
 ]);
 
