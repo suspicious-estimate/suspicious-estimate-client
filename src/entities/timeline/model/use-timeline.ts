@@ -1,33 +1,20 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { TimelineItem, TimelineFilters } from './types';
-import { MOCK_TIMELINE_ITEMS } from './mock';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { TimelineFilters } from './types';
+import { timelineQueries } from './queries';
 
 export function useTimeline(projectId: string, filters?: TimelineFilters) {
-  const [items, setItems] = useState<TimelineItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
+  // 카테고리는 서버 측 필터(쿼리 키에 포함)로 처리한다.
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+    timelineQueries.list(projectId, filters?.category),
+  );
 
-  useEffect(() => {
-    // TODO: apiGet(`/api/projects/${projectId}/timeline?...`) 로 교체
-    setTimeout(() => {
-      setItems(
-        MOCK_TIMELINE_ITEMS.filter((i) => i.project_id === projectId || projectId === 'proj-001'),
-      );
-      setIsLoading(false);
-      setHasMore(false);
-    }, 300);
-  }, [projectId]);
+  let items = data?.pages.flatMap((page) => page.items) ?? [];
 
-  let filteredItems = items;
-
-  if (filters?.category && filters.category !== 'all') {
-    filteredItems = filteredItems.filter((item) => item.process_category === filters.category);
-  }
-
+  // 검색은 README 스펙에 없는 프런트 전용 필터 (현재 로드된 페이지 대상)
   if (filters?.search) {
     const q = filters.search.toLowerCase();
-    filteredItems = filteredItems.filter(
+    items = items.filter(
       (item) =>
         item.message_content?.toLowerCase().includes(q) ||
         item.sender_name?.toLowerCase().includes(q) ||
@@ -35,9 +22,11 @@ export function useTimeline(projectId: string, filters?: TimelineFilters) {
     );
   }
 
-  const loadMore = () => {
-    // TODO: 커서 기반 페이징 구현
+  return {
+    items,
+    isLoading,
+    hasMore: hasNextPage,
+    loadMore: fetchNextPage,
+    isFetchingNextPage,
   };
-
-  return { items: filteredItems, isLoading, hasMore, loadMore };
 }

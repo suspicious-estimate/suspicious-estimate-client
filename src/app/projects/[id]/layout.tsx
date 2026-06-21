@@ -27,7 +27,11 @@ export default function ProjectLayout({
   const showUploadFab = !/\/(assistant|upload|export)(\/|$)/.test(pathname);
 
   const statusLabel =
-    project?.status === 'active' ? '진행중' : project?.status === 'completed' ? '완료' : project?.status;
+    project?.status === 'active'
+      ? '진행중'
+      : project?.status === 'completed'
+        ? '완료'
+        : project?.status;
 
   const summary = project
     ? [project.contractor_name, project.contract_amount && formatCurrency(project.contract_amount)]

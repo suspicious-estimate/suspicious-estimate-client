@@ -1,28 +1,16 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { UserPlan } from './types';
-import { MOCK_STORAGE } from './mock';
+import { useQuery } from '@tanstack/react-query';
+import { quotaQueries } from './queries';
 import { getQuotaPercentage, getQuotaLevel } from '@/entities/quota/lib/quota';
 
 export function useQuota() {
-  const [used, setUsed] = useState(0);
-  const [limit, setLimit] = useState(0);
-  const [fileCount, setFileCount] = useState(0);
-  const [fileLimit, setFileLimit] = useState(0);
-  const [plan, setPlan] = useState<UserPlan>('free');
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, isLoading } = useQuery(quotaQueries.storageUsage());
 
-  useEffect(() => {
-    // TODO: apiGet('/api/projects/storage-usage') 로 교체
-    setTimeout(() => {
-      setUsed(MOCK_STORAGE.used_bytes);
-      setLimit(MOCK_STORAGE.limit_bytes);
-      setFileCount(MOCK_STORAGE.file_count);
-      setFileLimit(MOCK_STORAGE.file_limit);
-      setPlan(MOCK_STORAGE.plan);
-      setIsLoading(false);
-    }, 200);
-  }, []);
+  const used = data?.used_bytes ?? 0;
+  const limit = data?.limit_bytes ?? 0;
+  const fileCount = data?.file_count ?? 0;
+  const fileLimit = data?.file_limit ?? 0;
+  const plan = data?.plan ?? 'free';
 
   const percentage = getQuotaPercentage(used, limit);
   const level = getQuotaLevel(percentage);
