@@ -1,28 +1,32 @@
 'use client';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UploadStep } from './types';
 import { MOCK_UPLOAD_STEPS } from './mock';
+import { uploadApi } from './api';
+import { timelineQueries } from '@/entities/timeline/model/queries';
+import { quotaQueries } from '@/entities/quota/model/queries';
 
 type UploadStatus = 'idle' | 'uploading' | 'processing' | 'done' | 'error';
 
 export function useUpload(projectId: string) {
+  const queryClient = useQueryClient();
   const [status, setStatus] = useState<UploadStatus>('idle');
   const [progress, setProgress] = useState(0);
   const [steps, setSteps] = useState<UploadStep[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
-  const upload = async (files: File[]) => {
-    setStatus('uploading');
-    setProgress(0);
-    setError(null);
-
-    // TODO: 실제 구현 시 apiUpload(`/api/projects/${projectId}/upload`, formData)
-    // 아래는 시뮬레이션 (2초 간격으로 단계 진행)
-    try {
-      // 업로드 단계
+  const {
+    mutate,
+    error,
+    reset: resetMutation,
+  } = useMutation({
+    mutationFn: async (files: File[]) => {
+      // 1) 업로드
+      setStatus('uploading');
       setProgress(30);
-      await new Promise((r) => setTimeout(r, 800));
+      const result = await uploadApi.upload(projectId, files);
 
+      // 2) 서버 후처리 단계 진행 (목 시뮬레이션)
       setStatus('processing');
       setProgress(50);
       setSteps([
@@ -44,19 +48,33 @@ export function useUpload(projectId: string) {
 
       setProgress(100);
       setSteps(MOCK_UPLOAD_STEPS.map((s) => ({ ...s, status: 'completed' as const })));
+      return result;
+    },
+    onSuccess: () => {
       setStatus('done');
-    } catch {
-      setError('업로드 중 오류가 발생했습니다');
+      // 업로드 결과가 타임라인·저장 용량에 반영되므로 무효화한다.
+      // 카테고리와 무관하게 해당 프로젝트의 모든 타임라인 쿼리를 대상으로 한다.
+      queryClient.invalidateQueries({ queryKey: [...timelineQueries.lists(), projectId] });
+      queryClient.invalidateQueries({ queryKey: quotaQueries.all() });
+    },
+    onError: () => {
       setStatus('error');
-    }
-  };
+    },
+  });
 
   const reset = () => {
     setStatus('idle');
     setProgress(0);
     setSteps([]);
-    setError(null);
+    resetMutation();
   };
 
-  return { upload, progress, status, steps, error, reset };
+  return {
+    upload: mutate,
+    progress,
+    status,
+    steps,
+    error: error ? '업로드 중 오류가 발생했습니다' : null,
+    reset,
+  };
 }
