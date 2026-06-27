@@ -20,7 +20,6 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           - 상태 뱃지 (active=파랑, completed=초록, dispute=빨강)
           - 우측 하단: 사진 N장 · 메시지 N건
       */}
-      <p className="text-gray-400 text-sm">ProjectCard — 목업 참고하여 구현</p>
       <p className="font-medium text-gray-900">{project.title}</p>
       {project.contractor_name && (
         <p className="text-sm text-gray-500">{project.contractor_name}</p>
