@@ -39,13 +39,13 @@ export function Sidebar() {
       <Link href="/projects" className="flex items-center gap-2 px-3 mb-6">
         <Image
           src="/apple-touch-icon.png"
-          alt="수상한견적서 로고"
+          alt="우리집한권 로고"
           width={28}
           height={28}
           className="rounded-lg shrink-0"
           priority
         />
-        <span className="text-lg font-bold text-gray-900">수상한견적서</span>
+        <span className="text-lg font-bold text-gray-900">우리집한권</span>
       </Link>
 
       {/* 새 프로젝트 */}
