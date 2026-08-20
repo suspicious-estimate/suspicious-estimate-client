@@ -53,13 +53,13 @@ export default function LoginPage() {
           <div className="relative mb-5 bg-white rounded-4xl drop-shadow-xl">
             <Image
               src="/android-chrome-512x512.png"
-              alt="수상한견적서 로고"
+              alt="우리집한권 로고"
               width={128}
               height={128}
               priority
             />
           </div>
-          <h1 className="mb-2 text-2xl font-bold text-gray-900">수상한견적서</h1>
+          <h1 className="mb-2 text-2xl font-bold text-gray-900">우리집한권</h1>
           <p className="text-sm leading-relaxed text-gray-500">
             인테리어 공사의 모든 과정을
             <br />
@@ -105,13 +105,13 @@ export default function LoginPage() {
             <div className="mx-auto mb-6 w-fit rounded-3xl bg-white drop-shadow-xl">
               <Image
                 src="/android-chrome-512x512.png"
-                alt="수상한견적서 로고"
+                alt="우리집한권 로고"
                 width={88}
                 height={88}
                 priority
               />
             </div>
-            <h1 className="mb-2 text-center text-2xl font-bold text-gray-900">수상한견적서</h1>
+            <h1 className="mb-2 text-center text-2xl font-bold text-gray-900">우리집한권</h1>
             <p className="mb-8 text-center text-sm leading-relaxed text-gray-500">
               인테리어 공사의 모든 과정을 안전하게 기록하고 관리하세요
             </p>

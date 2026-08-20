@@ -7,7 +7,7 @@ import { QueryProvider } from '@/shared/api/query-provider';
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: '수상한견적서',
+  title: '우리집한권',
   description: '인테리어 공사의 모든 과정을 안전하게 기록하고 관리하세요',
   manifest: '/site.webmanifest',
   icons: {
