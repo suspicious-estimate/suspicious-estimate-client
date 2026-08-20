@@ -1,13 +1,8 @@
 import { StorageUsage } from './types';
-import { MOCK_STORAGE } from './mock';
-// import { apiGet } from '@/shared/api/client';
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import { apiGet } from '@/shared/api/client';
 
 export const quotaApi = {
   async storageUsage(): Promise<StorageUsage> {
-    // return apiGet<StorageUsage>('/api/projects/storage-usage');
-    await delay(200);
-    return MOCK_STORAGE;
+    return apiGet<StorageUsage>('/api/projects/storage-usage');
   },
 };
